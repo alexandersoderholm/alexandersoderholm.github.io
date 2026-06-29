@@ -94,3 +94,37 @@ window.addEventListener('pageshow', (event) => {
         runTransition();
     }
 });
+
+/* MOBILE FOCUS EFFECT */
+function enableMobileFocus() {
+    if (!('ontouchstart' in window)) return; // kör bara på touch-enheter
+
+    const items = document.querySelectorAll('.project-square');
+
+    function updateFocus() {
+        const centerY = window.innerHeight / 2;
+
+        let closest = null;
+        let closestDistance = Infinity;
+
+        items.forEach(item => {
+            const rect = item.getBoundingClientRect();
+            const itemCenter = rect.top + rect.height / 2;
+            const distance = Math.abs(centerY - itemCenter);
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closest = item;
+            }
+        });
+
+        items.forEach(item => item.classList.remove('in-focus'));
+        if (closest) closest.classList.add('in-focus');
+    }
+
+    window.addEventListener('scroll', updateFocus);
+    window.addEventListener('resize', updateFocus);
+    updateFocus();
+}
+
+document.addEventListener('DOMContentLoaded', enableMobileFocus);
