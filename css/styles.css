@@ -115,10 +115,6 @@ body.skip-intro #intro {
     background-repeat: no-repeat;
 }
 
-#hero::before {
-    background: rgba(255,255,255,0) !important;
-}
-
 #hero .content-wrapper {
     margin-left: 10vw;   /* flyttar texten till vänstra tredjedelen */
     margin-right: auto;
@@ -137,7 +133,7 @@ body.skip-intro #intro {
     position: absolute;
     inset: 0;
     backdrop-filter: blur(var(--hero-blur, 0px));
-    background: rgba(255,255,255,var(--hero-lighten, 0));
+    background: rgba(255,255,255, 0);
     pointer-events: none;
 }
 
