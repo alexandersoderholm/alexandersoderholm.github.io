@@ -112,7 +112,7 @@ body.skip-intro #intro {
 }
 
 #hero.full-bg {
-    background-image: url('../images/landing.png');
+    background-image: url("../images/landing.png");
 }
 
 #hero .content-wrapper {
