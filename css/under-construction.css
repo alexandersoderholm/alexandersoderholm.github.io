@@ -1,5 +1,5 @@
 body {
-    background: url('../images/svg/background-construction.svg') no-repeat center top;
+    background: url('../Images/svg/background-construction.svg') no-repeat center top;
     background-size: cover;
     background-position: center -80px; /* flytta upp bilden */
 }
