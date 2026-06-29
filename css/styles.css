@@ -109,10 +109,14 @@ body.skip-intro #intro {
     position: relative;
     overflow: hidden;
     padding-left: 0; /* wrapper styr */
+    background-image: url('../images/landing.png') ;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
-#hero.full-bg {
-    background-image: url("../images/landing.png");
+#hero::before {
+    background: rgba(255,255,255,0) !important;
 }
 
 #hero .content-wrapper {
