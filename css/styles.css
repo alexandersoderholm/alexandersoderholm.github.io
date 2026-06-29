@@ -340,3 +340,20 @@ body {
 .home-link:hover {
     opacity: 0.6;
 }
+
+/* MOBIL: Bild i fokus */
+@media (max-width: 700px) {
+    .project-square.in-focus {
+        transform: scale(1.03);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    }
+
+    .project-square.in-focus::after {
+        opacity: 1;
+    }
+
+    .project-square.in-focus .project-info {
+        opacity: 1;
+    }
+}
+
