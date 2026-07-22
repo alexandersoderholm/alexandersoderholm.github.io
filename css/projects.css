@@ -1,0 +1,286 @@
+/* Override global img max-width for the banner */
+.project-banner img {
+    max-width: none !important;
+}
+
+/* =========================================================
+   PROJECT-SPECIFIC TOP-RIGHT TEXT LINK
+========================================================== */
+.back-link {
+    pointer-events: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);    
+    padding-bottom: 0.15rem;
+    display: inline-flex;
+    align-items: center;
+    transition: 0.2s ease;
+    z-index: 2;
+}
+
+.back-link:hover {
+  color: rgba(255, 255, 255, 1);
+  opacity: 1;    
+}
+
+/* =========================================================
+   BOUNDED BANNER (TRANSFORM ENGINE STYLES)
+========================================================== */
+
+.project-banner {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    overflow: hidden;
+    background: #000000;
+    user-select: none;
+    cursor: grab;
+    touch-action: pan-y;
+}
+
+.project-banner.is-dragging {
+    cursor: grabbing;
+}
+
+.project-banner-track {
+    display: flex;
+    height: 100%;
+    width: max-content;
+    will-change: transform;
+}
+
+.project-banner-media {
+    height: 100svh;
+    flex: 0 0 auto;
+}
+
+.project-banner-media img {
+    height: 100svh;
+    width: auto;
+    max-width: none !important;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.project-banner-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.45) 100%);
+    z-index: 1;
+    transition: opacity 0.4s ease;
+}
+
+.project-banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+    margin-inline: auto;
+    padding-bottom: clamp(2rem, 5vw, 4rem);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.project-banner-content > * {
+    pointer-events: auto;
+}
+
+.project-banner-title {
+    font-family: var(--font-header);
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    font-weight: var(--w-semibold);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    margin: 0;
+}
+
+.project-banner-meta {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--w-regular);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.project-banner-meta span:nth-child(2) {
+    color: var(--subtitle-quiet-color);
+}
+
+.project-banner.focus-mode .project-banner-overlay,
+.project-banner.focus-mode .project-banner-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* =========================================================
+   DESKTOP VIEWPORT OVERRIDES (100VW FULL-WIDTH BANNER)
+========================================================== */
+@media (min-width: 900px) {
+
+    .project-banner-media {
+        width: 100vw;
+        height: 100%;
+        flex: 0 0 100vw;
+    }
+
+    .project-banner-media img {
+        width: 100vw;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+/* =========================================================
+   4. CONTENT SECTIONS & SUMMARY GRID (1/3 + 2/3)
+========================================================== */
+
+.project-summary-section {
+    /* Uses exact index site container limits instead of custom 1400px */
+    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+    margin-inline: auto;
+    padding-block: clamp(4rem, 8vw, 7rem);
+    box-sizing: border-box;
+}
+
+.project-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+@media (min-width: 900px) {
+    .project-summary-grid {
+        grid-template-columns: 1fr 2fr; /* Exact 1/3 and 2/3 ratio */
+        gap: var(--grid-gap); /* Uses global grid gap token from index */
+    }
+}
+
+.project-summary-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.meta-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meta-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    color: rgba(17, 17, 17, 0.5);
+}
+
+.meta-value {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #111;
+}
+
+.project-summary-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+    line-height: 1.65;
+    color: rgba(17, 17, 17, 0.85);
+}
+
+.project-summary-text p {
+    margin: 0;
+}
+
+.lead-paragraph {
+    font-weight: 500;
+    color: #111;
+}
+
+/* =========================================================
+   5. MEDIA, SWIPER & GALLERY CONTENT
+========================================================== */
+
+.project-content {
+    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+    margin-inline: auto;
+    display: grid;
+    place-items: center;
+    padding-bottom: 3rem;
+}
+
+.project-image {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.project-image img {
+    width: 100%;
+    max-width: 100%; /* Contained properly within the site grid */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.mySwiper {
+    width: 100%;
+    margin: 3rem auto 0;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 28px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #111;
+}
+
+.swiper-pagination-bullet {
+    background: #111;
+}
+
+/* =========================================================
+   6. FOOTER / SIMILAR PROJECTS NAVIGATION
+========================================================== */
+
+.similar-projects {
+    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+    margin-inline: auto;
+    padding-bottom: 3rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.similar-projects a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(17, 17, 17, 0.25);
+    padding-bottom: 0.15rem;
+}
