@@ -1,0 +1,415 @@
+/* ==========================================================================
+   GLOBAL TYPOGRAPHY AND LAYOUT SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-header: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Fluid type scale */
+  --fs-xxl: clamp(3.0rem, 5vw, 5rem);
+  --fs-xl: clamp(1.7rem, 3.2vw, 2.35rem);
+  --fs-lg: clamp(1.2rem, 2.2vw, 1.55rem);
+  --fs-md: 1rem;
+  --fs-sm: 0.95rem;
+  --fs-xs: 0.75rem;
+  --entity-title-size: 1.2rem;
+  --subtitle-size: 0.85rem;
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-normal: 1.4;
+  --lh-loose: 1.6;
+
+  /* Weights */
+  --w-regular: 400;
+  --w-medium: 500;
+  --w-semibold: 600;
+  --entity-title-weight: 700;
+
+  /* Mono accents */
+  --mono-spacing: 0.08em;
+
+  /* Colors */
+  --color-text: #111;
+  --color-muted: rgba(17, 17, 17, 0.64);
+  --border-soft: rgba(17, 17, 17, 0.12);
+  --subtitle-quiet-color: #B3B3B3;
+
+  /* Global spacing rhythm */
+  --section-padding: clamp(2rem, 4vw, 3rem);
+  --grid-gap: clamp(2rem, 4vw, 3.5rem);
+
+  /* Global Site Layout Variables */
+  --site-margin: clamp(1.5rem, 5vw, 4rem);
+  --site-max-width: 1200px;
+  --text-max-width: 65ch;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  font-weight: var(--w-regular);
+  color: var(--color-text);
+  background: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-header);
+  font-weight: var(--w-medium);
+  letter-spacing: -0.01em;
+  line-height: var(--lh-tight);
+  color: var(--color-text);
+  margin: 0;
+}
+
+h1 { font-size: var(--fs-xxl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+
+p {
+  margin: 0;
+}
+
+.accent-meta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  opacity: 0.64;
+  display: block;
+}
+
+/* ==========================================================================
+   GLOBAL CONTAINERS & LAYOUT UTILITIES
+   ========================================================================== */
+
+/* Standard Container for all aligned sections */
+.container {
+  width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+  margin-inline: auto;
+}
+
+/* Narrow Container for pure reading blocks */
+.container--narrow {
+  width: min(100% - (var(--site-margin) * 2), var(--text-max-width));
+  margin-inline: auto;
+}
+
+/* Full-bleed Container for edge-to-edge layouts */
+.container--full {
+  width: 100%;
+  padding-inline: var(--site-margin);
+}
+
+.section-title {
+  font-size: var(--fs-xl);
+  font-weight: var(--w-medium);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.section-label {
+  font-family: var(--font-header);
+  font-size: var(--fs-md);
+  font-weight: var(--w-regular);
+  letter-spacing: 0.05em;
+  color: var(--subtitle-quiet-color);
+  margin: 0;
+  padding-bottom: 0.25rem;
+  /* text-transform: uppercase; REMOVED */
+}
+
+/* ==========================================================================
+   REUSABLE RESPONSIVE GRIDS
+   ========================================================================== */
+
+.grid-2-col {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+.grid-12-col {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--grid-gap);
+}
+
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--grid-gap);
+}
+
+@media (max-width: 850px) {
+  .grid-2-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   GLOBAL SITE HEADER (Brand Wordmark & Top Bar)
+========================================================= */
+
+.site-header {
+    position: absolute;
+    top: clamp(1.25rem, 3vh, 2.25rem);
+    left: var(--site-margin);
+    right: var(--site-margin);
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-wordmark {
+    pointer-events: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--w-regular);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: 0.2s ease;
+    z-index: 2;
+}
+
+.brand-wordmark:hover {
+  color: rgba(255, 255, 255, 1);
+  opacity: 1;    
+}
+
+/* =========================================================
+   SHARED PILL BUTTON ENGINE
+========================================================== */
+.button-pill {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--w-regular);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 12px;
+    width: fit-content;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Arrow micro-interaction updated for the SVG */
+.button-pill svg {
+    transition: transform 0.2s ease;
+}
+
+.button-pill:hover svg {
+    transform: translateX(3px);
+}
+
+/* ==========================================================================
+   SITE FOOTER
+   ========================================================================== */
+
+.site-footer {
+  width: 100%;
+  padding-block: var(--section-padding) clamp(2rem, 4vw, 3rem);
+  background: #f5f5f5;
+  border-top: 1px solid var(--border-soft);
+  color: var(--color-text);
+  margin-top: var(--section-padding);
+
+}
+
+.site-footer .footer-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--grid-gap);
+  align-items: start;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* =========================================================
+  FOOTER BUTTON (On Light Gray Footer)
+========================================================== */
+
+.footer-button {
+    padding: 0.75rem 1.4rem;
+    background:transparent; /* Dark/Black fill by default */
+    color: var(--color-text); /* Light text */
+    border: 1px solid var(--color-text);
+    transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-button:hover {
+    background: var(--color-text); /* Hollows out on hover */
+    color: var(--color-bg, #ffffff); /* Text shifts to dark */
+    border-color: var(--color-text);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN SUB-GRID (LINKS & NAVIGATION)
+   ========================================================================== */
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* On desktop, split Links & Navigation into two columns side-by-side */
+@media (min-width: 600px) {
+  .footer-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Links on left, Navigation on right */
+    gap: var(--grid-gap);
+  }
+
+  /* Span the location text across both columns at the bottom */
+  .footer-location {
+    grid-column: 1 / -1;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Mobile adjustments (stacked as before) */
+@media (max-width: 700px) {
+  .site-footer .footer-main {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
+
+
+.footer-segment {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: opacity 0.2s ease;
+}
+
+.footer-links a:hover {
+  opacity: 0.6;
+}
+
+/* MONO UTILITY FOR PDF DOWNLOADS */
+.footer-links .link-download {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+}
+
+.footer-location {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* FOOTER BOTTOM BAR */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.back-to-top {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.2s ease;
+}
+
+.back-to-top:hover {
+  color: var(--color-text);
+}
+
+@media (max-width: 700px) {
+  .site-footer .footer-main {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
