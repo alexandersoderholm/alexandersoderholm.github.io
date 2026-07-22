@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander Söderholm</title>
+
+    <script src="js/script.js" defer></script>
+
+    <link rel="preload" href="images/hero1.1.jpg" as="image">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Preconnect to font providers for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+</head>
+
+<body class="skip-intro">
+
+<!-- INTRO SKY PANEL -->
+<div id="intro">
+    <div id="intro-name">Alexander<br>Söderholm</div>
+</div>
+
+<section class="hero">
+    <header class="site-header">
+        <a href="#" class="brand-wordmark">Alexander Söderholm</a>
+    </header>
+
+    <div class="viewport-wrapper">
+        <div class="hero-track">
+            <div class="hero-tile"><img src="images/hero1.1.jpg" alt="Hero Illustration" draggable="false" /></div>
+            <div class="hero-tile"><img src="images/hero1.1.jpg" alt="Hero Illustration" draggable="false" /></div>
+            <div class="hero-tile"><img src="images/hero1.1.jpg" alt="Hero Illustration" draggable="false" /></div>
+        </div>
+
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to my world.</h1>
+            <a href="#projects" class="hero-tag button-pill">
+                Explore projects 
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>        
+        </div>
+
+        <div class="hero-pan-indicator">
+            <svg class="hero-pan-indicator__icon" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="2.2" width="1.25em" height="1.25em">
+                <path d="M12 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M20 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="hero-pan-indicator__label--desktop">Drag to pan</span>
+            <span class="hero-pan-indicator__label--mobile">Swipe to pan</span>
+        </div>
+    </div>
+</section>
+
+<!-- HERO 2 -->
+<section class="hero-2">
+    <div class="container">
+        <p class="hero-2-text">
+            I am a Master student at Lund University with a Bachelor's degree from Umeå University. I focus on <a href="#projects">architecture</a> shaped by context and everyday use, guided by the small interactions that define how <a href="#profile">people</a> experience a place.
+        </p>
+    </div>
+</section>
+
+<section id="projects" class="projects">
+    <div class="container">
+        <h2 class="section-title">Recent work</h2>
+    </div>
+    <div class="projects-gallery-container">    
+
+        <button class="projects-paddle projects-paddle-left" aria-label="Previous Project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <button class="projects-paddle projects-paddle-right" aria-label="Next Project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+
+        <div class="projects-track-wrapper">
+            <div class="projects-track">
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                        <div class="project-card-inner">
+                        <a class="project-card-media" href="projects/level.html">
+                            <span class="project-badge new">New</span>
+                            <img src="images/project-gallery/level.png" alt="Level">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Level</h3>
+                            <div class="project-card-details">
+                                <span>2026</span>
+                                <span>Academic</span>
+                                <span>Civic Renewal</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <a class="project-card-media" href="https://www.archiolcompetitions.com/results/subterranean_visions">
+                            <img src="images/project-gallery/depth-of-field.png" alt="Depth of Field">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Depth of Field</h3>
+                            <div class="project-card-details">
+                                <span>2026</span>
+                                <span>Competition</span>
+                                <span>Museum Extension</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <a class="project-card-media" href="projects/the-mussel.html">
+                            <img src="images/project-gallery/the-mussel.jpg" alt="The Mussel">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">The Mussel</h3>
+                            <div class="project-card-details">
+                                <span>2026</span>
+                                <span>Competition</span>
+                                <span>Seaside Pavilion</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <a class="project-card-media" href="projects/hideout.html">
+                            <img src="images/project-gallery/hideout.png" alt="Hideout">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Hideout</h3>
+                            <div class="project-card-details">
+                                <span>2025</span>
+                                <span>Academic</span>
+                                <span>Social Health centre</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                        <div class="project-card-inner">
+                        <a class="project-card-media is-disabled" href="projects/welcome-to-ucl.html">
+                            <span class="project-badge construction">Under construction</span>
+                            <img src="images/project-gallery/welcome-to-ucl.jpg" alt="Welcome to UCL">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Welcome to UCL</h3>
+                            <div class="project-card-details">
+                                <span>2024</span>
+                                <span>Academic</span>
+                                <span>Green infrastructure</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <a class="project-card-media is-disabled" href="projects/one-night-getaway.html">
+                            <span class="project-badge construction">Under construction</span>
+                            <img src="images/project-gallery/one-nigth-getaway.jpg" alt="One Night Getaway">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">One Night Getaway</h3>
+                            <div class="project-card-details">
+                                <span>2023</span>
+                                <span>Academic</span>
+                                <span>Low Tech Cabin</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- PROJECT CARD -->
+                <article class="project-card">
+                    <div class="project-card-inner">
+                        <a class="project-card-media is-disabled" href="projects/treppenecke.html">
+                            <span class="project-badge construction">Under construction</span>
+                            <img src="images/project-gallery/treppenecke.jpg" alt="Treppenecke">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Treppenecke</h3>
+                            <div class="project-card-details">
+                                <span>2023</span>
+                                <span>Academic</span>
+                                <span>Public node</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <div class="projects-track-end-spacer"></div>
+
+            </div> <!-- projects-track -->
+        </div> <!-- projects-viewport -->
+    </div>
+            
+</section>
+
+<section id="profile">
+    <div class="container">
+        <h2 class="section-title">This is me</h2>
+        
+        <div class="profile-grid">
+
+            <!-- LEFT COLUMN: PORTRAIT & BADGE -->
+            <div class="profile-portrait-block">
+                <img src="images/portrait.jpg" alt="Alexander Söderholm" class="profile-portrait">
+                <div class="profile-identity">
+                    <span class="identity-name">Alexander Söderholm</span>
+                    <span class="identity-meta">Master of Architecture Student</span>
+                    <span class="identity-meta">Based in Lund, Sweden</span>
+                </div>
+                
+                <!-- ACTION ICON BUTTONS -->
+            <div class="profile-actions">
+                <!-- Email Button -->
+                <a href="mailto:soderholm.alexander@gmail.com" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Email" title="Email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                </a>
+
+                <!-- LinkedIn Button -->
+                <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener" class="profile-action-btn" aria-label="LinkedIn" title="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12" rx="1"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+
+                <!-- CV Download Button -->
+                <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="CV" title="CV">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <line x1="10" y1="9" x2="8" y2="9"></line>
+                    </svg>
+                </a>
+
+                <!-- Portfolio Download Button -->
+                <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Portfolio" title="Portfolio">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                    </svg>
+                </a>
+            </div>
+            </div>
+            
+            <!-- RIGHT COLUMN: CONTENT -->
+            <div class="profile-info-block">
+
+                <!-- MERITS -->
+                <div class="profile-section">
+                    <h3 class="section-label">Merits</h3>
+                    
+                    <div class="profile-entry">
+                        <span class="entry-title">Competition Winner - Subterranean Visions</span>
+                        <span class="entry-sub">Archiol Competitions • 2026</span>
+                        <p class="entry-desc">Concept development, illustration, and architectural storytelling.</p>
+                    </div>
+                    
+                    <div class="profile-entry">
+                        <span class="entry-title">Exchange Student</span>
+                        <span class="entry-sub">University College London (The Bartlett) • 2024</span>
+                        <p class="entry-desc">Architecture and interdisciplinary studies.</p>
+                    </div>
+
+                    <div class="profile-entry">
+                        <span class="entry-title">Polestar Product Specialist</span>
+                        <span class="entry-sub">Polestar • 2022–Present</span>
+                        <p class="entry-desc">Brand communication, customer experience, and spatial product activation.</p>
+                    </div>
+                </div>
+
+                <!-- SKILLS -->
+                <div class="profile-section">
+                    <h3 class="section-label">Skills</h3>
+
+                    <div class="profile-entry">
+                        <span class="entry-title">Design & Visualization</span>
+                        <p class="entry-desc">Concept development, architectural storytelling, spatial modeling, and rendering.</p>
+                    </div>
+
+                    <div class="profile-entry">
+                        <span class="entry-title">Technical Expertise</span>
+                        <p class="entry-desc">AutoCAD, Rhino, Grasshopper, Adobe Creative Suite, and 3D printing.</p>
+                    </div>
+
+                    <div class="profile-entry">
+                        <span class="entry-title">Communication & Strategy</span>
+                        <p class="entry-desc">Design presentations, client consultation, and strategic brand alignment.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+        <div class="footer-left">
+            <h2 class="section-title">The story does not end here.</h2>
+            <a href="mailto:soderholm.alexander@gmail.com" class="footer-button button-pill">
+                Reach out 
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="footer-right">
+
+        <div class="footer-segment">
+          <span class="section-label">Links</span>
+          <ul class="footer-links">
+            <li>
+              <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener">
+                Portfolio
+              </a>
+            </li>
+            <li>
+              <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener">
+                CV
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener">
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-segment">
+          <span class="section-label">Navigation</span>
+          <ul class="footer-links">
+            <li><a href="#projects">Recent work</a></li>
+            <li><a href="#profile">This is me</a></li>
+          </ul>
+        </div>
+    </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <span>&copy; 2026 Alexander Söderholm. Lund, Sweden</span>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">
+            Back to Top 
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
+                <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
