@@ -153,37 +153,33 @@
 ========================================================== */
 
 .project-summary-section {
-    /* Uses exact index site container limits instead of custom 1400px */
-    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
-    margin-inline: auto;
-    padding-block: clamp(4rem, 8vw, 7rem);
-    box-sizing: border-box;
+    padding-block: clamp(3rem, 6vw, 5rem);
 }
 
 .project-summary-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
     align-items: start;
 }
 
 @media (min-width: 900px) {
     .project-summary-grid {
-        grid-template-columns: 1fr 2fr; /* Exact 1/3 and 2/3 ratio */
-        gap: var(--grid-gap); /* Uses global grid gap token from index */
+        grid-template-columns: 1fr 2fr;
+        gap: var(--grid-gap);
     }
 }
 
 .project-summary-meta {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
 }
 
 .meta-block {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.2rem;
 }
 
 .meta-label {
@@ -191,23 +187,37 @@
     font-size: var(--fs-xs);
     letter-spacing: var(--mono-spacing);
     text-transform: uppercase;
-    color: rgba(17, 17, 17, 0.5);
+    color: var(--color-muted);
 }
 
 .meta-value {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #111;
+    font-size: var(--fs-sm);
+    font-weight: var(--w-medium);
+    color: var(--color-text);
+    text-decoration: none;
+}
+
+.meta-sub {
+    font-size: var(--fs-xs);
+    color: var(--color-muted);
+}
+
+.meta-link {
+    width: fit-content;
+    transition: opacity 0.2s ease;
+}
+
+.meta-link:hover {
+    opacity: 0.6;
 }
 
 .project-summary-text {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
-    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
-    line-height: 1.65;
-    color: rgba(17, 17, 17, 0.85);
+    font-size: clamp(1rem, 1.15vw, 1.15rem);
+    line-height: var(--lh-loose);
+    color: var(--color-text);
 }
 
 .project-summary-text p {
@@ -215,8 +225,7 @@
 }
 
 .lead-paragraph {
-    font-weight: 500;
-    color: #111;
+    font-weight: var(--w-medium);
 }
 
 /* =========================================================
@@ -266,21 +275,408 @@
     background: #111;
 }
 
-/* =========================================================
-   6. FOOTER / SIMILAR PROJECTS NAVIGATION
-========================================================== */
 
-.similar-projects {
-    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
-    margin-inline: auto;
-    padding-bottom: 3rem;
-    display: flex;
-    justify-content: flex-end;
+/* =========================================================
+   POSTER SLIDER (Updated Mobile Fix)
+   ========================================================= */
+
+.posters-section {
+    background: #f5f5f5;
+    width: 100%;
+    padding-block: var(--section-padding);
+    position: relative;
+    border-bottom: 1px solid var(--border-soft);
 }
 
-.similar-projects a {
-    color: inherit;
+.poster-gallery-container {
+    position: relative;
+    width: 100%;
+}
+
+.poster-track-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-block: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    touch-action: pan-x pan-y;
+}
+
+.poster-track-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.poster-track-wrapper.is-dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+}
+
+.poster-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    padding-inline: max(var(--site-margin), calc((100vw - var(--site-max-width)) / 2));
+}
+
+.poster-card {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-drag: none;
     text-decoration: none;
-    border-bottom: 1px solid rgba(17, 17, 17, 0.25);
-    padding-bottom: 0.15rem;
+    color: inherit;
+    display: block;
+    height: 65vh;
+    flex: 0 0 auto;
+}
+
+.poster-track-wrapper.is-dragging .poster-card {
+    cursor: grabbing;
+}
+
+/* =========================================================
+   ASPECT RATIO SWITCHER
+   ========================================================= */
+.poster-card-inner {
+    height: 100%;
+    border-radius: 0;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.poster-gallery-container.is-landscape .poster-card-inner {
+    aspect-ratio: 1.414 / 1;
+}
+
+.poster-gallery-container.is-portrait .poster-card-inner {
+    aspect-ratio: 1 / 1.414;
+}
+
+.poster-card-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =========================================================
+   MOBILE MARGIN FIX
+   ========================================================= */
+@media (max-width: 768px) {
+    /* Portrait: Scale down height so width fits inside margins */
+    .poster-gallery-container.is-portrait .poster-card {
+        height: 48vh;
+        width: auto;
+    }
+
+    /* Landscape: Constrain by width so height fits inside screen */
+    .poster-gallery-container.is-landscape .poster-card {
+        width: calc(100vw - (var(--site-margin) * 2));
+        height: auto;
+    }
+}
+
+/* =========================================================
+   PADDLES
+   ========================================================= */
+.poster-paddle {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    z-index: 20;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+    opacity: 0;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+.poster-paddle:hover {
+    opacity: 1;
+}
+
+.poster-paddle.is-hidden {
+    display: none !important;
+}
+
+.poster-paddle-left {
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 2rem;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+.poster-paddle-right {
+    right: 0;
+    justify-content: flex-end;
+    padding-right: 2rem;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+.poster-paddle svg {
+    width: 28px;
+    height: 28px;
+    color: var(--color-text);
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+@media (max-width: 640px), (hover: none) {
+    .poster-paddle { 
+        display: none !important;   }
+}
+
+/* =========================================================
+   LIGHTBOX MODAL STYLES
+   ========================================================= */
+.poster-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.poster-lightbox.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-content {
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.lightbox-content img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-origin: center center; /* Default center */
+    cursor: default;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    -webkit-tap-highlight-color: transparent;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #111;
+    z-index: 1010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease;
+    opacity: 0.6;
+}
+
+.lightbox-close:hover,
+.lightbox-prev:hover,
+.lightbox-next:hover {
+    opacity: 1;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 0.5rem;
+    z-index: 1020; /* Ensures it sits above the paddle */
+}
+
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    top: 1rem;
+    bottom: 1rem;
+    width: 100px;
+    transform: none;
+    display: flex;
+    align-items: center;
+}
+
+.lightbox-prev { 
+    left: 0; 
+    justify-content: flex-start; 
+    padding-left: 2rem; 
+}
+
+.lightbox-next {
+    position: absolute;
+    top: 6rem; /* Starts below the close button */
+    bottom: 1rem;
+    right: 0;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 2rem;
+}
+
+/* Make navigation arrows invisible on mobile, but keep them clickable */
+@media (max-width: 768px), (hover: none) {
+    .lightbox-prev,
+    .lightbox-next {
+        opacity: 0 !important;
+        pointer-events: auto !important;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .lightbox-prev,
+    .lightbox-next {
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   PROJECT PAGE FOOTER ADJUSTMENTS
+   ========================================================= */
+
+.site-footer {
+    margin-top: 0;
+}
+
+/* =========================================================
+   PROJECT PAGE FOOTER ADJUSTMENTS
+   ========================================================= */
+
+.site-footer {
+    margin-top: 0;
+}
+
+/* =========================================================
+   PROJECT NEXT UP
+   ========================================================= */
+
+.project-next-up {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #ffffff;
+    padding-block: clamp(5rem, 10vh, 8rem);
+    overflow: hidden;
+}
+
+.project-next-up .container {
+    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+    margin-inline: auto;
+    position: relative;
+    z-index: 3;
+}
+
+/* Crisp, clean background picture with smooth fade and scale */
+.next-up-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.03);
+    transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Subtle dark tint purely for text readability over bright images */
+.next-up-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.next-up-link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.next-up-link .next-up-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--mono-spacing);
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, 0.6);
+    transition: color 0.4s ease;
+}
+
+.next-up-link .section-title {
+    display: inline-block;
+    color: #000000;
+    transform-origin: left center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
+}
+
+/* 1. Desktop: Hover ONLY works when hovering the text link */
+@media (hover: hover) {
+    .project-next-up:has(.next-up-link:hover) .next-up-bg,
+    .project-next-up:has(.next-up-link:hover) .next-up-overlay {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .project-next-up:has(.next-up-link:hover) .next-up-label {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .project-next-up:has(.next-up-link:hover) .section-title {
+        color: #ffffff;
+        transform: scale(1.04);
+    }
+}
+
+/* 2. Touch / Mobile: Triggered by scroll, whole section tappable */
+@media (hover: none), (pointer: coarse) {
+    .project-next-up {
+        cursor: pointer;
+    }
+
+    .project-next-up.is-inview .next-up-bg,
+    .project-next-up.is-inview .next-up-overlay {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .project-next-up.is-inview .next-up-label {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .project-next-up.is-inview .section-title {
+        color: #ffffff;
+        transform: scale(1.04);
+    }
 }
