@@ -277,4 +277,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+
+    //NEXT UP TRIGGER PHONES
+    const nextUpSection = document.querySelector('.project-next-up');
+    if (!nextUpSection) return;
+
+    // Scroll observer for touch devices
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                nextUpSection.classList.add('is-inview');
+            } else {
+                nextUpSection.classList.remove('is-inview');
+            }
+        });
+    }, { threshold: 0.8 });
+
+    observer.observe(nextUpSection);
+
+    // Make the whole section tappable ONLY on touch devices
+    nextUpSection.addEventListener('click', (e) => {
+        if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+            if (!e.target.closest('.next-up-link')) {
+                const link = nextUpSection.querySelector('.next-up-link');
+                if (link) link.click();
+            }
+        }
+    });
 });
