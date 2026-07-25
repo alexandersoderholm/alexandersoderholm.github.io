@@ -22,7 +22,6 @@
 <header class="site-header">
     <a href="../index.html" class="brand-wordmark">Alexander Söderholm</a>
     <a href="../index.html" class="back-link">
-        
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
             <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -48,7 +47,7 @@
     </div>
 </section>
 
-<section class="project-summary-section">
+<section id="description" class="project-summary-section container">    
     <div class="project-summary-grid">
         <!-- Left Column: Metadata (1/3) -->
         <div class="project-summary-meta">
@@ -88,15 +87,15 @@
 <section class="project-content">
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="../images/hideout/carousel/1 Site.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/2 Program.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/3 Access.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/4 Scout the place.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/5 Sun.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/6 Green roof.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/7 Facade.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/8 Interior.png" alt=""></div>
-            <div class="swiper-slide"><img src="../images/hideout/carousel/9 Final.png" alt=""></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/1 Site.png" alt="Site analysis"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/2 Program.png" alt="Program diagram"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/3 Access.png" alt="Access network"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/4 Scout the place.png" alt="Scouting analysis"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/5 Sun.png" alt="Sun studies"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/6 Green roof.png" alt="Green roof design"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/7 Facade.png" alt="Facade details"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/8 Interior.png" alt="Interior views"></div>
+            <div class="swiper-slide"><img src="../images/hideout/carousel/9 Final.png" alt="Final presentation"></div>
         </div>
 
         <!-- Navigation arrows -->
@@ -107,11 +106,11 @@
         <div class="swiper-pagination"></div>
     </div>
 
-    <div class="project-image">
-        <img src="../images/hideout/supreme-axo.png" alt="Exploded axonometric drawing">
-        <img src="../images/hideout/Floor 1-20262026-1.png" alt="First floor plan">
-        <img src="../images/hideout/Floor 2-20262026-1.png" alt="Second floor plan">
-        <img src="../images/hideout/BaSection E26.png" alt="Section AA">
+    <div class="project-image" style="max-width: 1200px; margin: 4rem auto 0; padding: 0 1.5rem; display: flex; flex-direction: column; gap: 3rem;">
+        <img src="../images/hideout/supreme-axo.png" alt="Exploded axonometric drawing" style="width: 100%; height: auto; display: block;">
+        <img src="../images/hideout/Floor 1-20262026-1.png" alt="First floor plan" style="width: 100%; height: auto; display: block;">
+        <img src="../images/hideout/Floor 2-20262026-1.png" alt="Second floor plan" style="width: 100%; height: auto; display: block;">
+        <img src="../images/hideout/BaSection E26.png" alt="Section AA" style="width: 100%; height: auto; display: block;">
     </div>
 </section>
 
@@ -122,13 +121,12 @@
             <span class="section-title">Level</span>
         </a>
     </div>
-    <!-- Add your specific project image here -->
     <div class="next-up-bg" style="background-image: url('../images/project-gallery/level.png');"></div>
     <div class="next-up-overlay"></div>
 </div>
 
 <footer class="site-footer">
-    <div class="container"> <!-- Restored inner container -->
+    <div class="container">
         <div class="footer-main">
             <div class="footer-left">
                 <h2 class="section-title">The story does not end here.</h2>
@@ -153,8 +151,7 @@
                 <div class="footer-segment">
                     <span class="section-label">Navigation</span>
                     <ul class="footer-links">
-                        <li><a href="#projects">Problem Statement</a></li>
-                        <li><a href="#profile">Design proposal</a></li>
+                        <li><a href="#description">Description</a></li>
                     </ul>
                 </div>
             </div>
