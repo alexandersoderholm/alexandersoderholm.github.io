@@ -219,51 +219,6 @@ body.skip-intro .hero {
 }
 
 /* =========================================================
-   HERO 2 (STATEMENT NARRATIVE)
-========================================================= */
-
-.hero-2 {
-    width: 100%;
-    background: #ffffff;
-    padding-block: clamp(5rem, 10vh, 8rem);
-}
-
-.hero-2-text {
-    font-family: var(--font-header);
-    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-    font-weight: var(--w-medium);
-    line-height: 1.35;
-    letter-spacing: -0.015em;
-    color: var(--color-text);
-    margin: 0;
-    max-width: var(--text-max-width);
-}
-
-.hero-2-text a,
-.hero-2-text u {
-    color: var(--color-text);
-    text-decoration: none;
-    border-bottom: 2px solid var(--color-text);
-    padding-bottom: 0.05rem;
-    transition: opacity 0.2s ease;
-}
-
-.hero-2-text a:hover {
-    opacity: 0.6;
-}
-
-/* MOBILE ADJUSTMENTS */
-@media (max-width: 700px) {
-    .hero-pan-indicator {
-        left: var(--site-margin);
-        right: auto;
-    }
-
-    .hero-pan-indicator__label--desktop { display: none; }
-    .hero-pan-indicator__label--mobile { display: inline-block; }
-}
-
-/* =========================================================
    PROJECTS SECTION
 ========================================================= */
 
