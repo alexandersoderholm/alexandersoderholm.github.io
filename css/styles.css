@@ -4,12 +4,12 @@
 
 #intro {
     position: fixed;
-    inset: 0;
+    inset: 0; 
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #000;
-    z-index: 10;
+    background: #000000;
+    z-index: 9999;
     pointer-events: none;
 }
 
@@ -67,12 +67,16 @@ body.skip-intro .hero {
 .hero {
     position: relative;
     width: 100%;
-    height: 100svh;
+    
+    /* Adapt height dynamically based on address bar type */
+    height: calc(100svh + env(safe-area-inset-bottom, 0px));
+    max-height: 100lvh;
+    
     overflow: hidden;
     background: #000000;
     cursor: grab;
     user-select: none;
-    touch-action: pan-y; /* Allows vertical page scrolling while capturing horizontal swipes */
+    touch-action: pan-y;
 }
 
 .hero:active,
@@ -96,7 +100,7 @@ body.skip-intro .hero {
 
 .hero .viewport-wrapper {
     width: 100vw;
-    height: 100svh;
+    height: 100%; /* Fills the 100lvh hero container */
     position: relative;
     overflow: hidden;
 }
@@ -111,7 +115,7 @@ body.skip-intro .hero {
 }
 
 .hero-tile {
-    height: 100svh;
+    height: 100%;
     flex: 0 0 auto;
 }
 
@@ -124,7 +128,6 @@ body.skip-intro .hero {
     user-select: none;
     -webkit-user-drag: none;
 }
-
 /* HERO CONTENT & INDICATORS LAYERED ON TOP */
 .hero-content {
     position: absolute;
@@ -171,8 +174,14 @@ body.skip-intro .hero {
 
 .hero-pan-indicator {
     position: absolute;
-    bottom: clamp(1.5rem, 4vh, 2.5rem);
+    /* 
+       1. (100lvh - 100svh) = Address bar height
+       2. + clamp(...)      = Your custom spacing above the bar
+       3. + env(...)        = Safe area inset for home indicator
+    */
+    bottom: calc(clamp(1.5rem, 4vh, 2.5rem) + env(safe-area-inset-bottom, 0px));
     right: var(--site-margin);
+    
     z-index: 10;
     display: flex;
     align-items: center;
@@ -183,8 +192,17 @@ body.skip-intro .hero {
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.65);
     pointer-events: none;
-    z-index: 5;
-    transition: opacity 0.4s ease;
+    
+    /* Smooth fade out when scrolling */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Hide when scrolling down */
+body.is-scrolled .hero-pan-indicator {
+    opacity: 0;
+    visibility: hidden;
 }
 
 .hero-pan-indicator__icon {
