@@ -6,13 +6,33 @@ function isMobile() {
 }
 
 /* =========================================================
-   2. INTRO — SKIP-INTRO LOGIC
+   2. INTRO — SKIP-INTRO & THEME-COLOR LOGIC
 ========================================================== */
+const themeMeta = document.getElementById('theme-color');
+const introEl = document.getElementById('intro');
+
+function setThemeColor(color) {
+    if (themeMeta) {
+        themeMeta.setAttribute('content', color);
+    }
+}
+
 if (!sessionStorage.getItem('introPlayed')) {
     document.body.classList.remove('skip-intro');
     sessionStorage.setItem('introPlayed', 'true');
+
+    // Swap theme color right as the intro fadeOut finishes
+    if (introEl) {
+        introEl.addEventListener('animationend', (e) => {
+            if (e.animationName === 'fadeOut') {
+                setThemeColor('#ffffff'); // Match your light section / header background
+            }
+        });
+    }
 } else {
     document.body.classList.add('skip-intro');
+    // If intro was skipped, switch to light immediately
+    setThemeColor('#ffffff');
 }
 
 /* =========================================================
@@ -192,6 +212,15 @@ if (!sessionStorage.getItem('introPlayed')) {
             deactivateFocusMode();
         } else {
             document.body.classList.remove('scrolled');
+        }
+    }, { passive: true });
+
+   /* Hide indicator immediately when page scroll begins */
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+            document.body.classList.add('is-scrolled');
+        } else {
+            document.body.classList.remove('is-scrolled');
         }
     }, { passive: true });
 })();
