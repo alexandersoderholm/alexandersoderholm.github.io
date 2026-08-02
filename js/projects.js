@@ -1,9 +1,8 @@
 /* =========================================================
-   PROJECT PAGE INTERACTION LOGIC (FLUID MOBILE ENGINE)
+   PROJECT DETAIL PAGE ENGINE (projects.js)
 ========================================================== */
 document.addEventListener('DOMContentLoaded', () => {
 
-    const goBack = document.querySelector('.back-link');
     const transitionData = JSON.parse(sessionStorage.getItem('transitionData'));
     const banner = document.querySelector('.project-banner');
     const track = document.querySelector('.project-banner-track');
@@ -29,16 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastTime = 0;
 
     /* -----------------------------------------------------
-        1. HERO IMAGE PATH & DIMENSION CACHING
+        HERO IMAGE PATH & DIMENSION CACHING
     ----------------------------------------------------- */
-    if (heroImg) {
-        if (transitionData?.imgSrc) {
-            let imgSrc = transitionData.imgSrc;
-            if (!imgSrc.startsWith('http') && !imgSrc.startsWith('/') && !imgSrc.startsWith('../') && window.location.pathname.includes('/projects/')) {
-                imgSrc = '../' + imgSrc;
-            }
-            heroImg.src = imgSrc;
+    if (heroImg && transitionData?.imgSrc) {
+        let imgSrc = transitionData.imgSrc;
+        if (!imgSrc.startsWith('http') && !imgSrc.startsWith('/') && !imgSrc.startsWith('../') && window.location.pathname.includes('/projects/')) {
+            imgSrc = '../' + imgSrc;
         }
+        heroImg.src = imgSrc;
     }
 
     function updateBounds() {
@@ -79,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* -----------------------------------------------------
-        2. INDEX-STYLE FLUID PHYSICS & INTERACTION ENGINE (STRICT BOUNDS)
+        FLUID PHYSICS & INTERACTION ENGINE
     ----------------------------------------------------- */
     if (banner && track) {
         function activateFocusMode() {
@@ -97,14 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Render Loop with Hard Boundaries
         function renderLoop() {
             if (!isPointerDown) {
                 if (focusMode) {
                     virtualX += velocity;
-                    velocity *= 0.94; // Standardfriktion
+                    velocity *= 0.94;
 
-                    // Strikta gränser: stoppa rörelsen helt vid kanten
                     if (virtualX >= maxX) {
                         virtualX = maxX;
                         velocity = 0;
@@ -126,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         requestAnimationFrame(renderLoop);
 
-        // Scroll Wheel / Trackpad
         banner.addEventListener('wheel', (e) => {
             if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
                 const delta = e.shiftKey && Math.abs(e.deltaX) <= Math.abs(e.deltaY) ? e.deltaY : e.deltaX;
@@ -135,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 virtualX -= delta;
                 
-                // Spärra mushjulet från att scrolla förbi kanten
                 if (virtualX > maxX) virtualX = maxX;
                 if (virtualX < minX) virtualX = minX;
 
@@ -147,10 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: false });
 
-        // Pointer Events
         function onPointerDown(e) {
             if (e.button && e.button !== 0) return;
-            if (e.target.closest('.back-link')) return;
 
             isPointerDown = true;
             isDragging = false;
@@ -188,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 virtualX += deltaX;
 
-                // Strikta gränser: tillåt inte fingret att dra förbi kanten
                 if (virtualX > maxX) {
                     virtualX = maxX;
                 } else if (virtualX < minX) {
@@ -234,75 +224,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, { passive: true });
     }
-
+    
     /* -----------------------------------------------------
-        3. BACK BUTTON HANDLER
+        NEXT UP TRIGGER (MOBILE TOUCH)
     ----------------------------------------------------- */
-    if (goBack) {
-        goBack.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            if (window.scrollY > 50) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                return;
-            }
-
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = '../index.html';
-            }
-        });
-    }
-
-    /* -----------------------------------------------------
-        4. SWIPER CAROUSEL INITIALIZATION
-    ----------------------------------------------------- */
-    if (document.querySelector('.mySwiper')) {
-        new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 2000,
-                disableOnInteraction: false,
-            },
-            effect: "fade",
-            fadeEffect: { crossFade: true },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            }
-        });
-    }
-
-
-    //NEXT UP TRIGGER PHONES
     const nextUpSection = document.querySelector('.project-next-up');
-    if (!nextUpSection) return;
+    if (nextUpSection) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    nextUpSection.classList.add('is-inview');
+                } else {
+                    nextUpSection.classList.remove('is-inview');
+                }
+            });
+        }, { threshold: 0.8 });
 
-    // Scroll observer for touch devices
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                nextUpSection.classList.add('is-inview');
-            } else {
-                nextUpSection.classList.remove('is-inview');
+        observer.observe(nextUpSection);
+
+        nextUpSection.addEventListener('click', (e) => {
+            if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
+                if (!e.target.closest('.next-up-link')) {
+                    const link = nextUpSection.querySelector('.next-up-link');
+                    if (link) link.click();
+                }
             }
         });
-    }, { threshold: 0.8 });
+    }
 
-    observer.observe(nextUpSection);
+    /* -----------------------------------------------------
+        DYNAMIC BACK BUTTON HASH ASSIGNMENT
+    ----------------------------------------------------- */
+    const backBtn = document.querySelector('.back-button, .nav-back');
+    if (backBtn) {
+        // Get the current page filename (e.g. "hideout.html" -> "hideout")
+        const currentFilename = window.location.pathname.split('/').pop();
+        const projectSlug = currentFilename ? currentFilename.replace('.html', '') : '';
 
-    // Make the whole section tappable ONLY on touch devices
-    nextUpSection.addEventListener('click', (e) => {
-        if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
-            if (!e.target.closest('.next-up-link')) {
-                const link = nextUpSection.querySelector('.next-up-link');
-                if (link) link.click();
-            }
+        if (projectSlug && projectSlug !== 'index') {
+            backBtn.setAttribute('href', `../index.html#${projectSlug}`);
         }
-    });
+    }
 });
+
