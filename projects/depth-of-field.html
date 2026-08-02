@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/projects.css"> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.min.css">
+
 
     <!-- Font Preconnects & Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,14 +17,14 @@
         
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
     <script src="../js/projects.js" defer></script>
-    <script src="../js/posters.js" defer></script>
+    <script type="module" src="../js/posters.js" defer></script>
 </head>
 
 <body class="project-page">
 
 <header class="site-header">
     <a href="../index.html" class="brand-wordmark">Alexander Söderholm</a>
-    <a href="../index.html" class="back-link">
+    <a href="../index.html#depth-of-field" class="back-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
             <path d="M19 12H5M12 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -70,10 +72,9 @@
             </div>
             <div class="meta-block">
                 <span class="meta-label">Documents</span>
-                <a class="meta-value meta-link" href="https://www.archiolcompetitions.com/results/subterranean_visions" target="_blank" rel="noopener">Competition Results (Archiol)</a>
-                <a class="meta-value meta-link" href="../images/pdf/depth-of-field.pdf" target="_blank" rel="noopener">Posters (PDF)</a>
-
-            </div>
+                    <a class="meta-value meta-link" href="https://www.archiolcompetitions.com/results/subterranean_visions" target="_blank" rel="noopener">Competition Results (Archiol)</a>
+                    <a class="meta-value meta-link" href="../images/pdf/depth-of-field.pdf" target="_blank" rel="noopener">Posters (PDF)</a>
+                </div>
         </div>
 
         <!-- Right Column: Paragraph Text (2/3) -->
@@ -128,37 +129,37 @@
         <div class="poster-track-wrapper">
             <div class="poster-track">
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster1.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster1.jpg" alt="Poster 1">
                     </div>
                 </a>
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster2.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster2.jpg" alt="Poster 2">
                     </div>
                 </a>
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster3.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster3.jpg" alt="Poster 3">
                     </div>
                 </a>
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster4.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster4.jpg" alt="Poster 4">
                     </div>
                 </a>
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster5.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster5.jpg" alt="Poster 5">
                     </div>
                 </a>
 
-                <a href="#" class="poster-card">
+                <a href="../images/depth-of-field/posters/poster6.jpg" data-pswp-width="2000" data-pswp-height="1414" class="poster-card">
                     <div class="poster-card-inner">
                         <img src="../images/depth-of-field/posters/poster6.jpg" alt="Poster 6">
                     </div>
@@ -226,31 +227,10 @@
   </div>
 </footer>
 
-<!-- Poster Lightbox Modal -->
-<div class="poster-lightbox" id="posterLightbox">
-    <button class="lightbox-close" aria-label="Close lightbox">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-    
-    <button class="lightbox-prev" aria-label="Previous poster">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-
-    <button class="lightbox-next" aria-label="Next poster">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-    </button>
-
-    <div class="lightbox-content">
-        <div class="lightbox-zoom-inner">
-            <img id="lightboxImg" src="" alt="Enlarged Poster">
-        </div>
-    </div>
+<div id="gallery">
+  <a href="large-image.jpg" data-pswp-width="1800" data-pswp-height="1200" target="_blank">
+    <img src="small-image.jpg" alt="" />
+  </a>
 </div>
 
 </body>
