@@ -3,6 +3,63 @@
 ========================================================== */
 document.addEventListener('DOMContentLoaded', () => {
 
+    /* -----------------------------------------------------
+        1. DYNAMIC BACK BUTTON HASH ASSIGNMENT
+    ----------------------------------------------------- */
+    const backBtn = document.querySelector('.back-button, .nav-back, .back-link');
+    if (backBtn) {
+        const currentFilename = window.location.pathname.split('/').pop();
+        const projectSlug = currentFilename ? currentFilename.replace('.html', '') : '';
+
+        if (projectSlug && projectSlug !== 'index') {
+            backBtn.setAttribute('href', `../index.html#${projectSlug}`);
+        }
+    }
+
+    /* -----------------------------------------------------
+        2. SWIPER CAROUSEL INITIALIZATION
+    ----------------------------------------------------- */
+    const swiperEl = document.querySelector('.mySwiper');
+
+    if (swiperEl && typeof Swiper !== 'undefined') {
+        new Swiper('.mySwiper', {
+            loop: true,
+            grabCursor: true,
+            spaceBetween: 24,
+            slidesPerView: 1,
+
+            // Transition effect (choose 'fade' or remove for default slide)
+            effect: 'fade',
+            fadeEffect: {
+                crossFade: true,
+            },
+            speed: 200,
+
+            // Continuous Autoplay
+            autoplay: {
+                delay: 2000,
+                disableOnInteraction: true, // Keeps playing after manual clicks/swipes
+                stopOnLastSlide: false,      // Guarantees it loops indefinitely
+            },
+
+            // Auto-recalculate if images or container change
+            observer: true,
+            observeParents: true,
+
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    }
+
+    /* -----------------------------------------------------
+        3. HERO IMAGE PATH & DIMENSION CACHING
+    ----------------------------------------------------- */
     const transitionData = JSON.parse(sessionStorage.getItem('transitionData'));
     const banner = document.querySelector('.project-banner');
     const track = document.querySelector('.project-banner-track');
@@ -27,9 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastClientX = 0;
     let lastTime = 0;
 
-    /* -----------------------------------------------------
-        HERO IMAGE PATH & DIMENSION CACHING
-    ----------------------------------------------------- */
     if (heroImg && transitionData?.imgSrc) {
         let imgSrc = transitionData.imgSrc;
         if (!imgSrc.startsWith('http') && !imgSrc.startsWith('/') && !imgSrc.startsWith('../') && window.location.pathname.includes('/projects/')) {
@@ -76,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* -----------------------------------------------------
-        FLUID PHYSICS & INTERACTION ENGINE
+        4. FLUID PHYSICS & INTERACTION ENGINE
     ----------------------------------------------------- */
     if (banner && track) {
         function activateFocusMode() {
@@ -226,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /* -----------------------------------------------------
-        NEXT UP TRIGGER (MOBILE TOUCH)
+        5. NEXT UP TRIGGER (MOBILE TOUCH)
     ----------------------------------------------------- */
     const nextUpSection = document.querySelector('.project-next-up');
     if (nextUpSection) {
@@ -252,18 +306,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* -----------------------------------------------------
-        DYNAMIC BACK BUTTON HASH ASSIGNMENT
-    ----------------------------------------------------- */
-    const backBtn = document.querySelector('.back-button, .nav-back');
-    if (backBtn) {
-        // Get the current page filename (e.g. "hideout.html" -> "hideout")
-        const currentFilename = window.location.pathname.split('/').pop();
-        const projectSlug = currentFilename ? currentFilename.replace('.html', '') : '';
-
-        if (projectSlug && projectSlug !== 'index') {
-            backBtn.setAttribute('href', `../index.html#${projectSlug}`);
-        }
-    }
 });
-
