@@ -41,8 +41,19 @@ body:not(.skip-intro) .hero {
 }
 
 @keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 1;
+        display: flex;
+    }
+    99.9% {
+        opacity: 0;
+        display: flex;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+        visibility: hidden; /* Clears hardware acceleration layers in Safari */
+    }
 }
 
 @keyframes slideUp {
@@ -499,7 +510,7 @@ body.is-scrolled .hero-pan-indicator {
 }
 
 /* =========================================================
-    PROJECT STATUS BADGE
+    PROJECT PADDLES
 ========================================================== */
 
 .projects-paddle {
@@ -529,16 +540,14 @@ body.is-scrolled .hero-pan-indicator {
     left: 0;
     justify-content: flex-start;
     padding-left: 2rem;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 100%);
-    mix-blend-mode: multiply;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
 .projects-paddle-right {
     right: 0;
     justify-content: flex-end;
     padding-right: 2rem;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 100%);
-    mix-blend-mode: multiply;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 100%);
 }
 
 .projects-paddle svg {
@@ -562,6 +571,11 @@ body.is-scrolled .hero-pan-indicator {
         display: none; 
     }
 }
+
+.projects-paddle.is-hidden {
+    display: none;
+}
+
 /* =========================================================
    PROFILE SECTION
 ========================================================= */
