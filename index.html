@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0", viewport-fit=cover">
     <meta name="theme-color" id="theme-color" content="#000000">
-    
     <title>Alexander Söderholm</title>
 
     <script src="js/script.js" defer></script>
+    <script src="js/global.js" defer></script>
 
     <link rel="preload" href="images/hero1.1.jpg" as="image">
     <link rel="stylesheet" href="css/global.css">
@@ -89,9 +89,9 @@
         <div class="projects-track-wrapper">
             <div class="projects-track">
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
-                        <div class="project-card-inner">
+                <!-- LEVEL -->
+                <article class="project-card" id="level">
+                    <div class="project-card-inner">
                         <a class="project-card-media" href="projects/level.html">
                             <span class="project-badge new">New</span>
                             <img src="images/project-gallery/level.png" alt="Level">
@@ -107,11 +107,10 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
+                <!-- DEPTH OF FIELD -->
+                <article class="project-card" id="depth-of-field">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/depth-of-field.html">
-                            <span class="project-badge new">Winner</span>
                             <img src="images/project-gallery/depth-of-field.png" alt="Depth of Field">
                         </a>
                         <div class="project-card-info">
@@ -125,8 +124,8 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
+                <!-- THE MUSSEL -->
+                <article class="project-card" id="the-mussel">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/the-mussel.html">
                             <img src="images/project-gallery/the-mussel.jpg" alt="The Mussel">
@@ -142,8 +141,8 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
+                <!-- HIDEOUT -->
+                <article class="project-card" id="hideout">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/hideout.html">
                             <img src="images/project-gallery/hideout.png" alt="Hideout">
@@ -159,9 +158,9 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
-                        <div class="project-card-inner">
+                <!-- WELCOME TO UCL -->
+                <article class="project-card" id="welcome-to-ucl">
+                    <div class="project-card-inner">
                         <a class="project-card-media is-disabled" href="projects/welcome-to-ucl.html">
                             <span class="project-badge construction">Under construction</span>
                             <img src="images/project-gallery/welcome-to-ucl.jpg" alt="Welcome to UCL">
@@ -177,8 +176,8 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
+                <!-- ONE NIGHT GETAWAY -->
+                <article class="project-card" id="one-night-getaway">
                     <div class="project-card-inner">
                         <a class="project-card-media is-disabled" href="projects/one-night-getaway.html">
                             <span class="project-badge construction">Under construction</span>
@@ -195,8 +194,8 @@
                     </div>
                 </article>
 
-                <!-- PROJECT CARD -->
-                <article class="project-card">
+                <!-- TREPPENECKE -->
+                <article class="project-card" id="treppenecke">
                     <div class="project-card-inner">
                         <a class="project-card-media is-disabled" href="projects/treppenecke.html">
                             <span class="project-badge construction">Under construction</span>
@@ -212,13 +211,10 @@
                         </div>
                     </div>
                 </article>
-                
-                <div class="projects-track-end-spacer"></div>
 
             </div> <!-- projects-track -->
-        </div> <!-- projects-viewport -->
+        </div> <!-- projects-track-wrapper -->
     </div>
-            
 </section>
 
 <section id="profile">
@@ -388,5 +384,6 @@
   </div>
 </footer>
 
+<div class="page-transition-overlay" id="page-overlay"></div>
 </body>
 </html>
