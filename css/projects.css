@@ -1,151 +1,149 @@
-/* Override global img max-width for the banner */
-.project-banner img {
-    max-width: none !important;
-}
-
 /* =========================================================
-   PROJECT-SPECIFIC TOP-RIGHT TEXT LINK
-========================================================== */
-.back-link {
-    pointer-events: auto;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    letter-spacing: var(--mono-spacing);
-    text-transform: uppercase;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.9);    
-    padding-bottom: 0.15rem;
-    display: inline-flex;
-    align-items: center;
-    transition: 0.2s ease;
-    z-index: 2;
-}
-
-.back-link:hover {
-  color: rgba(255, 255, 255, 1);
-  opacity: 1;    
-}
-
-/* =========================================================
-   BOUNDED BANNER (TRANSFORM ENGINE STYLES)
-========================================================== */
+   PROJECT HERO BANNER (100SVH MOBILE / 100LVH DESKTOP)
+   ========================================================= */
 
 .project-banner {
-    position: relative;
-    width: 100%;
-    height: 100svh;
-    overflow: hidden;
-    background: #000000;
-    user-select: none;
-    cursor: grab;
-    touch-action: pan-y;
+  position: relative;
+  width: 100%;
+  /* Mobile: Fits between top screen edge & bottom address bar without stutter */
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #000000;
+  user-select: none;
+  cursor: grab;
+  touch-action: pan-y;
 }
 
 .project-banner.is-dragging {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .project-banner-track {
-    display: flex;
-    height: 100%;
-    width: max-content;
-    will-change: transform;
+  display: flex;
+  height: 100%;
+  width: max-content;
+  will-change: transform;
 }
 
 .project-banner-media {
-    height: 100svh;
-    flex: 0 0 auto;
+  height: 100vh;
+  height: 100svh;
+  flex: 0 0 auto;
 }
 
 .project-banner-media img {
-    height: 100svh;
-    width: auto;
-    max-width: none !important;
-    object-fit: cover;
-    display: block;
-    user-select: none;
-    -webkit-user-drag: none;
-    pointer-events: none;
+  height: 100vh;
+  height: 100svh;
+  width: auto;
+  max-width: none !important;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+
+  view-transition-name: project-hero;
 }
 
+/* Gradient overlay */
 .project-banner-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,0.45) 100%);
-    z-index: 1;
-    transition: opacity 0.4s ease;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.45) 0%,
+    rgba(0, 0, 0, 0) 20%,
+    rgba(0, 0, 0, 0) 80%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.4s ease;
 }
 
+/* Bottom banner text (Sits cleanly above the address bar) */
 .project-banner-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
-    margin-inline: auto;
-    padding-bottom: clamp(2rem, 5vw, 4rem);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+  margin-inline: auto;
+  /* Natural padding above the bottom address bar */
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
 }
 
 .project-banner-content > * {
-    pointer-events: auto;
+  pointer-events: auto;
 }
 
 .project-banner-title {
-    font-family: var(--font-header);
-    font-size: clamp(2.5rem, 5vw, 4.2rem);
-    font-weight: var(--w-semibold);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #ffffff;
-    margin: 0;
+  font-family: var(--font-header);
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
+  font-weight: var(--w-semibold);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
 }
 
 .project-banner-meta {
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    font-weight: var(--w-regular);
-    letter-spacing: var(--mono-spacing);
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-top: 0.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--w-regular);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.25rem;
 }
 
 .project-banner-meta span:nth-child(2) {
-    color: var(--subtitle-quiet-color);
+  color: var(--subtitle-quiet-color);
 }
 
 .project-banner.focus-mode .project-banner-overlay,
 .project-banner.focus-mode .project-banner-content {
-    opacity: 0;
-    pointer-events: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* =========================================================
-   DESKTOP VIEWPORT OVERRIDES (100VW FULL-WIDTH BANNER)
-========================================================== */
+   DESKTOP OVERRIDES (Full Width & Full Height)
+   ========================================================= */
 @media (min-width: 900px) {
+  .project-banner {
+    height: 100vh;
+    height: 100lvh;
+  }
 
-    .project-banner-media {
-        width: 100vw;
-        height: 100%;
-        flex: 0 0 100vw;
-    }
+  .project-banner-media {
+    width: 100vw;
+    height: 100vh;
+    height: 100lvh;
+    flex: 0 0 100vw;
+  }
 
-    .project-banner-media img {
-        width: 100vw;
-        height: 100%;
-        object-fit: cover;
-    }
+  .project-banner-media img {
+    width: 100vw;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-banner-content {
+    width: calc(100% - (var(--site-margin) * 2));
+    max-width: none;
+    padding-bottom: clamp(2.5rem, 4vw, 4rem);
+  }
 }
 
 /* =========================================================
@@ -413,14 +411,14 @@
     left: 0;
     justify-content: flex-start;
     padding-left: 2rem;
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to right, rgba(245, 245, 245, 0.9) 0%, rgba(245, 245, 245, 0.5) 40%, rgba(245, 245, 245, 0) 100%);
 }
 
 .poster-paddle-right {
     right: 0;
     justify-content: flex-end;
     padding-right: 2rem;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.5) 40%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to left, rgba(245, 245, 245, 0.9) 0%, rgba(245, 245, 245, 0.5) 40%, rgba(245, 245, 245, 0) 100%);
 }
 
 .poster-paddle svg {
@@ -437,121 +435,82 @@
 }
 
 /* =========================================================
-   LIGHTBOX MODAL STYLES
+   PHOTOSWIPE CUSTOM THEME OVERRIDES (Cleaned & Optimized)
    ========================================================= */
-.poster-lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: #f5f5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+
+.pswp {
+  --pswp-bg: #f5f5f5;
+  --pswp-icon-color: #111111;
+  --pswp-root-z-index: 1000;
 }
 
-.poster-lightbox.is-open {
-    opacity: 1;
-    pointer-events: auto;
+/* Background & placeholder color matching for smooth fade / no black flashes */
+.pswp__bg,
+.pswp__zoom-wrap,
+.pswp__content,
+.pswp__img--placeholder {
+  background-color: #f5f5f5 !important;
 }
 
-.lightbox-content {
-    -webkit-tap-highlight-color: transparent;
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    cursor: pointer;
+.pswp--open .pswp__bg {
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.lightbox-content img {
-    max-width: 90vw;
-    max-height: 85vh;
-    object-fit: contain;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-origin: center center; /* Default center */
-    cursor: default;
+/* Prevent container cropping for drop shadows */
+.pswp__item,
+.pswp__zoom-wrap {
+  overflow: visible !important;
 }
 
-.lightbox-close,
-.lightbox-prev,
-.lightbox-next {
-    -webkit-tap-highlight-color: transparent;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #111;
-    z-index: 1010;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.2s ease;
-    opacity: 0.6;
+/* Image shadow + iOS GPU Hardware Acceleration */
+.pswp__img {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
-.lightbox-close:hover,
-.lightbox-prev:hover,
-.lightbox-next:hover {
-    opacity: 1;
+/* Position top bar with iOS notch / Dynamic Island safe areas */
+.pswp__top-bar {
+  padding-top: max(1.5rem, env(safe-area-inset-top));
+  padding-right: max(1.5rem, env(safe-area-inset-right));
+  padding-left: max(1.5rem, env(safe-area-inset-left));
+  height: auto;
 }
 
-.lightbox-close {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    padding: 0.5rem;
-    z-index: 1020; /* Ensures it sits above the paddle */
+/* Button base styling & tap highlight removal */
+.pswp__button {
+  -webkit-tap-highlight-color: transparent;
+  background: transparent !important;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+  width: 44px;
+  height: 44px;
+  touch-action: manipulation;
 }
 
-.lightbox-prev,
-.lightbox-next {
-    position: absolute;
-    top: 1rem;
-    bottom: 1rem;
-    width: 100px;
-    transform: none;
-    display: flex;
-    align-items: center;
+.pswp__button:hover {
+  opacity: 1;
 }
 
-.lightbox-prev { 
-    left: 0; 
-    justify-content: flex-start; 
-    padding-left: 2rem; 
+/* Icon rendering */
+.pswp__button .pswp__icn {
+  width: 24px;
+  height: 24px;
+  margin: auto;
 }
 
-.lightbox-next {
-    position: absolute;
-    top: 6rem; /* Starts below the close button */
-    bottom: 1rem;
-    right: 0;
-    width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 2rem;
+/* Navigation arrows safe-area positioning */
+.pswp__button--arrow--prev {
+  left: max(1rem, env(safe-area-inset-left));
 }
 
-/* Make navigation arrows invisible on mobile, but keep them clickable */
-@media (max-width: 768px), (hover: none) {
-    .lightbox-prev,
-    .lightbox-next {
-        opacity: 0 !important;
-        pointer-events: auto !important;
-    }
+.pswp__button--arrow--next {
+  right: max(1rem, env(safe-area-inset-right));
 }
 
-@media (hover: none), (pointer: coarse) {
-    .lightbox-prev,
-    .lightbox-next {
-        display: none !important;
-    }
+/* Hide counter */
+.pswp__counter {
+  display: none;
 }
 
 /* =========================================================
