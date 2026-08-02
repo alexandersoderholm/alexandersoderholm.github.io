@@ -1,4 +1,11 @@
 /* =========================================================
+   0. GLOBAL SCROLL RESTORATION CONTROL
+========================================================== */
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+/* =========================================================
    1. DEVICE & ENVIRONMENT HELPERS
 ========================================================== */
 function isMobile() {
@@ -17,22 +24,23 @@ function setThemeColor(color) {
     }
 }
 
-if (!sessionStorage.getItem('introPlayed')) {
+if (window.location.hash || sessionStorage.getItem('introPlayed')) {
+    document.body.classList.add('skip-intro');
+    setThemeColor('#ffffff');
+    if (!sessionStorage.getItem('introPlayed')) {
+        sessionStorage.setItem('introPlayed', 'true');
+    }
+} else {
     document.body.classList.remove('skip-intro');
     sessionStorage.setItem('introPlayed', 'true');
 
-    // Swap theme color right as the intro fadeOut finishes
     if (introEl) {
         introEl.addEventListener('animationend', (e) => {
             if (e.animationName === 'fadeOut') {
-                setThemeColor('#ffffff'); // Match your light section / header background
+                setThemeColor('#ffffff');
             }
         });
     }
-} else {
-    document.body.classList.add('skip-intro');
-    // If intro was skipped, switch to light immediately
-    setThemeColor('#ffffff');
 }
 
 /* =========================================================
@@ -45,21 +53,17 @@ if (!sessionStorage.getItem('introPlayed')) {
     if (!hero || !track) return;
 
     let focusMode = false;
-    
-    // Physics variables
     let virtualX = 0;              
     let velocity = 0;              
-    let autoPanSpeed = -0.6;         // Keep positive; we subtract it properly below
+    let autoPanSpeed = -0.6;
     let singleTileWidth = 0;
 
-    // Pointer Tracking
     let isPointerDown = false;
     let isDragging = false;
     let pointerId = null;
     let lastClientX = 0;
     let lastTime = 0;
 
-    // Measure Tile Dimensions
     function updateDimensions() {
         singleTileWidth = track.scrollWidth / 3;
     }
@@ -68,7 +72,6 @@ if (!sessionStorage.getItem('introPlayed')) {
     window.addEventListener('resize', updateDimensions);
     window.addEventListener('load', updateDimensions);
 
-    // Focus Mode Handlers
     function activateFocusMode() {
         if (!focusMode) {
             focusMode = true;
@@ -83,25 +86,23 @@ if (!sessionStorage.getItem('introPlayed')) {
         }
     }
 
-    // Mathematical continuous floor modulo
     function getWrappedOffset(x, tileWidth) {
         if (tileWidth <= 0) return 0;
         const mod = ((x % tileWidth) + tileWidth) % tileWidth;
-        return -mod - tileWidth; // Centers inside middle tile
+        return -mod - tileWidth;
     }
 
-    // Physics Render Loop
     function renderLoop() {
         if (!isPointerDown) {
             if (focusMode) {
                 if (Math.abs(velocity) > 0.05) {
                     virtualX += velocity;
-                    velocity *= 0.94; // Inertia damping
+                    velocity *= 0.94;
                 } else {
                     velocity = 0;
                 }
             } else {
-                virtualX -= autoPanSpeed; // Clean subtraction for auto-pan
+                virtualX -= autoPanSpeed;
             }
         }
 
@@ -114,27 +115,6 @@ if (!sessionStorage.getItem('introPlayed')) {
     }
     requestAnimationFrame(renderLoop);
 
-    // Prevent drag/focus mode from hijacking the "Explore projects" button click and trigger instantly
-    const heroTagBtn = hero.querySelector('.hero-tag');
-    if (heroTagBtn) {
-        heroTagBtn.addEventListener('pointerdown', (e) => {
-            e.stopPropagation(); 
-        });
-        
-        // Fires instantly on release, bypassing native click delay
-        heroTagBtn.addEventListener('pointerup', (e) => {
-            e.stopPropagation();
-            const targetId = heroTagBtn.getAttribute('href');
-            if (targetId && targetId.startsWith('#')) {
-                const targetEl = document.querySelector(targetId);
-                if (targetEl) {
-                    targetEl.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        });
-    }
-
-    // Trackpad / Mouse Wheel Horizontal Support (INVERTED)
     hero.addEventListener('wheel', (e) => {
         const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
         if (delta !== 0) {
@@ -145,7 +125,6 @@ if (!sessionStorage.getItem('introPlayed')) {
         }
     }, { passive: false });
 
-    // Pointer Drag & Inertia Handlers (INVERTED)
     function onPointerDown(e) {
         if (e.button && e.button !== 0) return;
 
@@ -213,10 +192,7 @@ if (!sessionStorage.getItem('introPlayed')) {
         } else {
             document.body.classList.remove('scrolled');
         }
-    }, { passive: true });
-
-   /* Hide indicator immediately when page scroll begins */
-    window.addEventListener('scroll', () => {
+        
         if (window.scrollY > 20) {
             document.body.classList.add('is-scrolled');
         } else {
@@ -226,7 +202,7 @@ if (!sessionStorage.getItem('introPlayed')) {
 })();
 
 /* =========================================================
-   4. PROJECT GALLERY (NATIVE CSS SCROLL + ROBUST MOUSE DRAG)
+   4. PROJECT GALLERY & SCROLL POSITION CONTROL
 ========================================================== */
 (function initNativeGallery() {
     const wrapper = document.querySelector('.projects-track-wrapper');
@@ -237,21 +213,40 @@ if (!sessionStorage.getItem('introPlayed')) {
 
     const cards = Array.from(wrapper.querySelectorAll('.project-card, .project-square'));
 
-    // Prevent native image ghosting/dragging globally inside track
     wrapper.querySelectorAll('img, a').forEach(el => {
         el.setAttribute('draggable', 'false');
         el.addEventListener('dragstart', (e) => e.preventDefault());
     });
 
-    // Paddle Click Navigation
+    function updatePaddles() {
+        if (!leftPaddle || !rightPaddle) return;
+        const tolerance = 15;
+        const isAtStart = wrapper.scrollLeft <= tolerance;
+        const isAtEnd = wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - tolerance;
+
+        leftPaddle.classList.toggle('is-hidden', isAtStart);
+        rightPaddle.classList.toggle('is-hidden', isAtEnd);
+    }
+
     function scrollGallery(direction) {
         if (!cards.length) return;
-        const cardWidth = cards[0].offsetWidth;
-        const gap = 32; // Matches your 2rem CSS gap
-        const scrollAmount = cardWidth + gap;
 
-        wrapper.scrollBy({
-            left: direction * scrollAmount,
+        let currentIndex = 0;
+        let minDistance = Infinity;
+
+        cards.forEach((card, index) => {
+            const distance = Math.abs(card.offsetLeft - cards[0].offsetLeft - wrapper.scrollLeft);
+            if (distance < minDistance) {
+                minDistance = distance;
+                currentIndex = index;
+            }
+        });
+
+        const targetIndex = Math.max(0, Math.min(cards.length - 1, currentIndex + direction));
+        const targetScroll = cards[targetIndex].offsetLeft - cards[0].offsetLeft;
+
+        wrapper.scrollTo({
+            left: targetScroll,
             behavior: 'smooth'
         });
     }
@@ -263,16 +258,15 @@ if (!sessionStorage.getItem('introPlayed')) {
         rightPaddle.addEventListener('click', () => scrollGallery(1));
     }
 
-    // Robust Mouse Click & Drag Mechanics with Drag-to-Click Prevention
     let isDown = false;
     let hasDragged = false;
     let startX;
     let scrollLeft;
 
     wrapper.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return; // Only left-click
+        if (e.button !== 0) return;
         isDown = true;
-        hasDragged = false; // Reset drag flag on new press
+        hasDragged = false;
         wrapper.classList.add('is-dragging');
         
         startX = e.clientX;
@@ -298,17 +292,16 @@ if (!sessionStorage.getItem('introPlayed')) {
         e.preventDefault();
         
         const x = e.clientX;
-        const walk = (x - startX) * 1.5; // Scroll multiplier speed
+        const walk = (x - startX) * 1.5;
         
-        // If the user moved more than 5 pixels, flag it as a drag (prevents accidental link clicks)
         if (Math.abs(walk) > 5) {
             hasDragged = true;
         }
         
         wrapper.scrollLeft = scrollLeft - walk;
+        updatePaddles();
     });
 
-    // Intercept and cancel clicks on cards/links if the user was dragging
     wrapper.addEventListener('click', (e) => {
         if (hasDragged) {
             e.preventDefault();
@@ -316,8 +309,9 @@ if (!sessionStorage.getItem('introPlayed')) {
         }
     }, true);
 
-    // Active Card Highlighting (Restricted strictly to mobile viewports)
     function updateActiveCard() {
+        updatePaddles();
+
         if (!cards.length || window.innerWidth > 700) {
             cards.forEach(card => {
                 card.classList.remove('project-card--active', 'in-focus');
@@ -350,5 +344,44 @@ if (!sessionStorage.getItem('introPlayed')) {
 
     wrapper.addEventListener('scroll', updateActiveCard, { passive: true });
     window.addEventListener('resize', updateActiveCard);
+    
     updateActiveCard();
+
+    function handleHashJump(isInitialLoad = false) {
+        const hash = window.location.hash;
+
+        // If clicking wordmark (no hash), stay/reset to top (0,0)
+        if (!hash) {
+            if (isInitialLoad) {
+                window.scrollTo(0, 0);
+            }
+            return;
+        }
+
+        const targetEl = document.querySelector(hash);
+        const projectsSection = document.getElementById('projects');
+
+        if (!targetEl) return;
+
+        const behaviorMode = isInitialLoad ? 'auto' : 'smooth';
+
+        if (projectsSection && (targetEl === projectsSection || projectsSection.contains(targetEl))) {
+            projectsSection.scrollIntoView({ behavior: behaviorMode });
+        } else {
+            targetEl.scrollIntoView({ behavior: behaviorMode });
+        }
+
+        if (wrapper.contains(targetEl)) {
+            const cardCenter = targetEl.offsetLeft + (targetEl.offsetWidth / 2);
+            const wrapperCenter = wrapper.clientWidth / 2;
+            wrapper.scrollTo({
+                left: Math.max(0, cardCenter - wrapperCenter),
+                behavior: behaviorMode
+            });
+        }
+    }
+
+    handleHashJump(true);
+    window.addEventListener('load', () => handleHashJump(true));
+    window.addEventListener('hashchange', () => handleHashJump(false));
 })();
