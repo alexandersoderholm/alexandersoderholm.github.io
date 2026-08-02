@@ -1,7 +1,25 @@
+/* =========================================================
+   PAGE TRANSITION OVERLAY
+========================================================== */
+.page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #ffffff;
+    z-index: 99999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.22s ease-in-out;
+}
+
+/* Opaque state when fading out/in */
+body.is-transitioning .page-transition-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* ==========================================================================
    GLOBAL TYPOGRAPHY AND LAYOUT SYSTEM
    ========================================================================== */
-
 
 :root {
   /* Fonts */
@@ -179,37 +197,68 @@ p {
 }
 
 /* =========================================================
-   GLOBAL SITE HEADER (Brand Wordmark & Top Bar)
-========================================================= */
+   GLOBAL SITE HEADER
+   ========================================================= */
 
 .site-header {
-    position: absolute;
-    top: clamp(1.25rem, 3vh, 2.25rem);
-    left: var(--site-margin);
-    right: var(--site-margin);
-    z-index: 10;
-    pointer-events: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: min(100% - (var(--site-margin) * 2), var(--site-max-width));
+  margin-inline: auto;
+  padding-top: max(1.25rem, env(safe-area-inset-top));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  pointer-events: none;
 }
 
-.brand-wordmark {
-    pointer-events: auto;
-    font-family: var(--font-mono);
-    font-size: var(--fs-xs);
-    font-weight: var(--w-regular);
-    letter-spacing: var(--mono-spacing);
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.9);
-    text-decoration: none;
-    transition: 0.2s ease;
-    z-index: 2;
+/* Allow click/touch events only on actual links */
+.site-header > * {
+  pointer-events: auto;
 }
 
-.brand-wordmark:hover {
-  color: rgba(255, 255, 255, 1);
-  opacity: 1;    
+/* Shared typography for top navigation elements */
+.brand-wordmark,
+.back-link {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--mono-spacing);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.brand-wordmark:hover,
+.back-link:hover {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Back link icon & text alignment */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.back-link svg {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+@media (min-width: 900px) {
+  .site-header {
+    width: calc(100% - (var(--site-margin) * 2));
+    max-width: none; /* Removes max-width limit so header spans full banner width */
+  }
 }
 
 /* =========================================================
