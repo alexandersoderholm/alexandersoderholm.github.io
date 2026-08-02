@@ -1,3 +1,8 @@
+import PhotoSwipeLightbox from 'https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe-lightbox.esm.min.js';
+
+/* =========================================================
+   1. POSTER GALLERY (TRACK DRAG & PADDLES)
+========================================================== */
 (function initPosterGallery() {
     const wrapper = document.querySelector('.poster-track-wrapper');
     const leftPaddle = document.querySelector('.poster-paddle-left');
@@ -6,7 +11,6 @@
     if (!wrapper) return;
 
     const cards = Array.from(wrapper.querySelectorAll('.poster-card'));
-    const posterImages = cards.map(card => card.querySelector('img').src);
 
     wrapper.querySelectorAll('img, a').forEach(el => {
         el.setAttribute('draggable', 'false');
@@ -78,11 +82,11 @@
         if (!isDown) return;
         const xWalk = Math.abs(e.clientX - startX);
         const yWalk = Math.abs(e.clientY - startY);
-        
+
         if (xWalk > 5 || yWalk > 5) {
             hasDragged = true;
         }
-        
+
         if (hasDragged) {
             const walk = (e.clientX - startX) * 1.5;
             wrapper.scrollLeft = scrollLeft - walk;
@@ -90,111 +94,45 @@
         }
     });
 
+    // Suppress PhotoSwipe opening if the user was dragging the track
+    wrapper.addEventListener('click', (e) => {
+        if (hasDragged) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true);
+
     wrapper.addEventListener('scroll', updatePaddles, { passive: true });
     window.addEventListener('resize', updatePaddles);
     updatePaddles();
-
-    // ==========================================
-    // LIGHTBOX FUNCTIONS
-    // ==========================================
-    const lightbox = document.querySelector('.poster-lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeBtn = lightbox?.querySelector('.lightbox-close');
-    const prevBtn = lightbox?.querySelector('.lightbox-prev');
-    const nextBtn = lightbox?.querySelector('.lightbox-next');
-    let currentIndex = 0;
-
-    function openLightbox(index) {
-        if (!lightbox || !lightboxImg) return;
-        currentIndex = index;
-        lightboxImg.src = posterImages[currentIndex];
-        lightbox.classList.add('is-open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-        if (!lightbox) return;
-        lightbox.classList.remove('is-open');
-        document.body.style.overflow = '';
-    }
-
-    function changeLightboxImage(direction) {
-        if (!lightboxImg) return;
-        currentIndex = (currentIndex + direction + posterImages.length) % posterImages.length;
-        lightboxImg.src = posterImages[currentIndex];
-    }
-
-    cards.forEach((card, index) => {
-        card.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!hasDragged) {
-                openLightbox(index);
-            }
-        });
-    });
-
-    if (closeBtn) closeBtn.addEventListener('click', closeLightbox);
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); changeLightboxImage(-1); });
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); changeLightboxImage(1); });
-
-    window.addEventListener('keydown', (e) => {
-        if (!lightbox?.classList.contains('is-open')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') changeLightboxImage(-1);
-        if (e.key === 'ArrowRight') changeLightboxImage(1);
-    });
 })();
 
-// =========================================================
-// LIGHTBOX SWIPE & CLICK-TO-CLOSE SUPPORT
-// =========================================================
-const lightbox = document.querySelector('.poster-lightbox');
-const lightboxContent = document.querySelector('.lightbox-content');
+/* =========================================================
+   2. PHOTOSWIPE LIGHTBOX INITIALIZATION
+========================================================== */
+const lightbox = new PhotoSwipeLightbox({
+    gallery: '.poster-track',
+    children: 'a.poster-card',
+    pswpModule: () => import('https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.2/photoswipe.esm.min.js'),
 
-let touchStartX = 0;
-let touchEndX = 0;
-let isMultiTouch = false;
-
-if (lightbox) {
-    lightbox.addEventListener('touchstart', (e) => {
-        if (e.touches.length > 1) {
-            isMultiTouch = true;
-        } else {
-            isMultiTouch = false;
-            touchStartX = e.changedTouches[0].screenX;
+    /* Dynamic margins (padding around the image) */
+    paddingFn: (viewportSize) => {
+        if (viewportSize.x < 768) {
+            return { top: 32, bottom: 32, left: 16, right: 16 };
         }
-    }, { passive: true });
+        return { top: 60, bottom: 60, left: 80, right: 80 };
+    },
 
-    lightbox.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 1) {
-            isMultiTouch = true;
-        }
-    }, { passive: true });
+    /* Animation & Background setup */
+    showAnimationDuration: 300,
+    hideAnimationDuration: 250,
+    bgOpacity: 1,
 
-    lightbox.addEventListener('touchend', (e) => {
-        if (isMultiTouch) return;
-        touchEndX = e.changedTouches[0].screenX;
-        
-        const swipeThreshold = 50;
-        const diff = touchEndX - touchStartX;
+    /* Custom SVGs */
+    closeSVG: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    zoomSVG: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 16l4.5 4.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    arrowPrevSVG: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    arrowNextSVG: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+});
 
-        if (Math.abs(diff) < swipeThreshold) return;
-
-        if (diff < 0) {
-            const nextBtn = document.querySelector('.lightbox-next');
-            if (nextBtn) nextBtn.click();
-        } else {
-            const prevBtn = document.querySelector('.lightbox-prev');
-            if (prevBtn) prevBtn.click();
-        }
-    }, { passive: true });
-}
-
-if (lightboxContent) {
-    lightboxContent.addEventListener('click', (e) => {
-        if (e.target === lightboxContent) {
-            const closeBtn = document.querySelector('.lightbox-close');
-            if (closeBtn) closeBtn.click();
-        }
-    });
-}
+lightbox.init();
