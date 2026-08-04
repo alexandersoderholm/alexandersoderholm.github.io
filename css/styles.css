@@ -80,7 +80,7 @@ body.skip-intro .hero {
     width: 100%;
     
     /* Adapt height dynamically based on address bar type */
-    height: calc(100svh + env(safe-area-inset-bottom, 0px));
+    height: calc(100svh + env(safe-area-inset-top, 0px));
     max-height: 100lvh;
     
     overflow: hidden;
@@ -101,7 +101,7 @@ body.skip-intro .hero {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
     z-index: 3;
