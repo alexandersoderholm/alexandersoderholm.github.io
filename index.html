@@ -3,13 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0", viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" id="theme-color" content="#000000">
     <title>Alexander Söderholm</title>
+    <style>
+        @view-transition {
+            navigation: auto;
+        }
+    </style>
 
+    <script>
+        const shouldPlayIntro = !window.location.hash && !window.sessionStorage.getItem('introPlayed');
+        document.documentElement.classList.add(shouldPlayIntro ? 'play-intro' : 'skip-intro');
+        if (shouldPlayIntro) {
+            document.getElementById('theme-color').setAttribute('content', '#000000');
+        }
+    </script>
     <script src="js/script.js" defer></script>
+    <script src="js/mobile-menu.js" defer></script>
 
-    <link rel="preload" href="images/hero1.1.jpg" as="image">
+    <link rel="preload" href="images/axo-world-day.png" as="image">
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/styles.css">
     <!-- Preconnect to font providers for performance -->
@@ -18,16 +31,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body class="skip-intro">
+<body>
 
 <!-- INTRO SKY PANEL -->
 <div id="intro">
-    <div id="intro-name">Alexander<br>Söderholm</div>
+    <div id="intro-name" role="img" aria-label="Alexander Söderholm">
+        <span class="intro-name-word" aria-hidden="true"><span style="--letter-index: 0">A</span><span style="--letter-index: 1">l</span><span style="--letter-index: 2">e</span><span style="--letter-index: 3">x</span><span style="--letter-index: 4">a</span><span style="--letter-index: 5">n</span><span style="--letter-index: 6">d</span><span style="--letter-index: 7">e</span><span style="--letter-index: 8">r</span></span>
+        <br aria-hidden="true">
+        <span class="intro-name-word" aria-hidden="true"><span style="--letter-index: 9">S</span><span style="--letter-index: 10">ö</span><span style="--letter-index: 11">d</span><span style="--letter-index: 12">e</span><span style="--letter-index: 13">r</span><span style="--letter-index: 14">h</span><span style="--letter-index: 15">o</span><span style="--letter-index: 16">l</span><span style="--letter-index: 17">m</span></span>
+    </div>
 </div>
 
-<section class="hero">
+<section class="hero" id="hero">
     <header class="site-header">
         <a href="#" class="brand-wordmark">Alexander Söderholm</a>
+        <nav class="site-nav desktop-site-nav" aria-label="Main navigation">
+            <a href="#projects">Work</a>
+            <a href="#profile">About</a>
+            <a href="#journal">Journal</a>
+            <a class="contact-nav-link" href="mailto:soderholm.alexander@gmail.com">Contact</a>
+        </nav>
+        <details class="site-menu">
+            <summary class="menu-button">Menu</summary>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="#projects">Work</a>
+                <a href="#profile">About</a>
+                <a href="#journal">Journal</a>
+                <a class="contact-nav-link" href="mailto:soderholm.alexander@gmail.com">Contact</a>
+            </nav>
+        </details>
     </header>
 
     <div class="viewport-wrapper">
@@ -38,9 +70,9 @@
         </div>
 
         <div class="hero-content">
-            <h1 class="hero-title">Welcome to my world.</h1>
-            <a href="#projects" class="hero-tag button-pill">
-                Explore projects 
+            <h1 class="hero-title">Welcome to my world</h1>
+            <a href="#hero" class="hero-tag button-pill">
+                Explore 
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
                     <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -58,42 +90,64 @@
     </div>
 </section>
 
+
 <!-- HERO 2 -->
 <section class="hero-2">
-    <div class="container">
-        <p class="hero-2-text">
-            I am a Master student at Lund University with a Bachelor's degree from Umeå University. I focus on <a href="#projects">architecture</a> shaped by context and everyday use, guided by the small interactions that define how <a href="#profile">people</a> experience a place.
-        </p>
+    <div class="container hero-2-grid">
+        <div class="hero-2-intro">
+            <h2 class="section-title">Hi, I am Alex</h2>
+        </div>
+        <div class="hero-2-main">
+            <p class="hero-2-text intro-statement">
+               I am a Master student at Lund University with a Bachelor's degree from Umeå University. What drives me is the <a href="#projects">story</a> behind every design decision and the <a href="#profile">life</a> that will be shaped by it.
+            </p>
+        </div>
     </div>
 </section>
 
 <section id="projects" class="projects">
-    <div class="container">
+    <div class="container projects-header">
         <h2 class="section-title">Recent work</h2>
+        <div class="projects-paddles" aria-label="Project gallery controls">
+            <button class="projects-paddle projects-paddle-left" aria-label="Previous project" disabled>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="projects-paddle projects-paddle-right" aria-label="Next project">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
     </div>
     <div class="projects-gallery-container">    
-
-        <button class="projects-paddle projects-paddle-left" aria-label="Previous Project">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-
-        <button class="projects-paddle projects-paddle-right" aria-label="Next Project">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-
         <div class="projects-track-wrapper">
             <div class="projects-track">
+
+                <!-- CAMPUSSTRATTEN -->
+                <article class="project-card" id="campustratten">
+                    <div class="project-card-inner">
+                        <a class="project-card-media" href="projects/campustratten.html">
+                            <span class="project-badge new">New</span>
+                            <img style="view-transition-name: project-campustratten-image;" src="images/project-gallery/campustratten.jpg" alt="Campustratten">
+                        </a>
+                        <div class="project-card-info">
+                            <h3 class="project-card-title">Campustratten</h3>
+                            <div class="project-card-details">
+                                <span>2026</span>
+                                <span>Competition</span>
+                                <span>Sustainable urban furniture</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
 
                 <!-- LEVEL -->
                 <article class="project-card" id="level">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/level.html">
-                            <span class="project-badge new">New</span>
-                            <img src="images/project-gallery/level.png" alt="Level">
+                            <img style="view-transition-name: project-level-image;" src="images/project-gallery/level.png" alt="Level">
                         </a>
                         <div class="project-card-info">
                             <h3 class="project-card-title">Level</h3>
@@ -110,7 +164,7 @@
                 <article class="project-card" id="depth-of-field">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/depth-of-field.html">
-                            <img src="images/project-gallery/depth-of-field.png" alt="Depth of Field">
+                            <img style="view-transition-name: project-depth-of-field-image;" src="images/project-gallery/depth-of-field.png" alt="Depth of Field">
                         </a>
                         <div class="project-card-info">
                             <h3 class="project-card-title">Depth of Field</h3>
@@ -127,7 +181,7 @@
                 <article class="project-card" id="the-mussel">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/the-mussel.html">
-                            <img src="images/project-gallery/the-mussel.jpg" alt="The Mussel">
+                            <img style="view-transition-name: project-the-mussel-image;" src="images/project-gallery/the-mussel.jpg" alt="The Mussel">
                         </a>
                         <div class="project-card-info">
                             <h3 class="project-card-title">The Mussel</h3>
@@ -144,7 +198,7 @@
                 <article class="project-card" id="hideout">
                     <div class="project-card-inner">
                         <a class="project-card-media" href="projects/hideout.html">
-                            <img src="images/project-gallery/hideout.png" alt="Hideout">
+                            <img style="view-transition-name: project-hideout-image;" src="images/project-gallery/hideout.png" alt="Hideout">
                         </a>
                         <div class="project-card-info">
                             <h3 class="project-card-title">Hideout</h3>
@@ -167,8 +221,7 @@
                         <div class="project-card-info">
                             <h3 class="project-card-title">Welcome to UCL</h3>
                             <div class="project-card-details">
-                                <span>2024</span>
-                                <span>Academic</span>
+                                <span>2024 Academic</span>
                                 <span>Green infrastructure</span>
                             </div>
                         </div>
@@ -180,7 +233,7 @@
                     <div class="project-card-inner">
                         <a class="project-card-media is-disabled" href="projects/one-night-getaway.html">
                             <span class="project-badge construction">Under construction</span>
-                            <img src="images/project-gallery/one-nigth-getaway.jpg" alt="One Night Getaway">
+                            <img src="images/project-gallery/one-night-getaway.jpg" alt="One Night Getaway">
                         </a>
                         <div class="project-card-info">
                             <h3 class="project-card-title">One Night Getaway</h3>
@@ -222,8 +275,8 @@
         
         <div class="profile-grid">
 
-            <!-- LEFT COLUMN: PORTRAIT & BADGE -->
-            <div class="profile-portrait-block">
+            <!-- PORTRAIT & CONTACT -->
+            <div class="profile-contact-block">
                 <img src="images/portrait.jpg" alt="Alexander Söderholm" class="profile-portrait">
                 <div class="profile-identity">
                     <span class="identity-name">Alexander Söderholm</span>
@@ -232,72 +285,67 @@
                 </div>
                 
                 <!-- ACTION ICON BUTTONS -->
-            <div class="profile-actions">
-                <!-- Email Button -->
-                <a href="mailto:soderholm.alexander@gmail.com" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Email" title="Email">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                    </svg>
-                </a>
-
-                <!-- LinkedIn Button -->
-                <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener" class="profile-action-btn" aria-label="LinkedIn" title="LinkedIn">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12" rx="1"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                </a>
-
-                <!-- CV Download Button -->
-                <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="CV" title="CV">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <line x1="10" y1="9" x2="8" y2="9"></line>
-                    </svg>
-                </a>
-
-                <!-- Portfolio Download Button -->
-                <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Portfolio" title="Portfolio">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                    </svg>
-                </a>
-            </div>
-            </div>
-            
-            <!-- RIGHT COLUMN: CONTENT -->
-            <div class="profile-info-block">
-
-                <!-- MERITS -->
-                <div class="profile-section">
-                    <h3 class="section-label">Special moments</h3>
-
-                    <div class="profile-entry">
-                        <span class="entry-title">Competition Winner - Urbform 1:1</span>
-                        <span class="entry-sub">Lund University x Lund Muncipality • 2026</span>
-                        <p class="entry-desc">Sustainable water management, research and context integration.</p>
-                    </div>
-                    
-                    <div class="profile-entry">
-                        <span class="entry-title">Competition Winner - Subterranean Visions</span>
-                        <span class="entry-sub">Archiol Competitions • 2026</span>
-                        <p class="entry-desc">Concept development, illustration, and architectural storytelling.</p>
-                    </div>
-                    
-                    <div class="profile-entry">
-                        <span class="entry-title">Exchange Student</span>
-                        <span class="entry-sub">University College London (The Bartlett) • 2024</span>
-                        <p class="entry-desc">Architecture and interdisciplinary studies.</p>
-                    </div>
-
+                <div class="profile-actions">
+                    <a href="mailto:soderholm.alexander@gmail.com" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Email" title="Email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="3"></rect>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener" class="profile-action-btn" aria-label="LinkedIn" title="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12" rx="1"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
+                    <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="CV" title="CV">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <line x1="10" y1="9" x2="8" y2="9"></line>
+                        </svg>
+                    </a>
+                    <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener" class="profile-action-btn" aria-label="Portfolio" title="Portfolio">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                    </a>
                 </div>
+            </div>
 
+            <div class="profile-info-block">
+                <p class="profile-intro intro-statement">
+                    Currently in my fifth year of architecture school, I find myself constantly drawn to design that creates personal encounters. For me, that means shaping spaces where people actually want to engage, alongside practical choices that make a project feasible. When those big-picture ideas merge with the small details into a clear story, that is good design to me.
+                </p>
+                <section class="profile-section" aria-labelledby="profile-awards-title">
+                    <h3 class="section-label" id="profile-awards-title">Awards</h3>
+                    <div class="profile-awards-grid">
+                        <article class="profile-award">
+                            <div class="profile-award-heading">
+                                <div class="profile-award-heading-content">
+                                    <span class="journal-entry-category profile-award-rank">1st Prize</span>
+                                    <h4 class="journal-entry-title profile-award-title">Depth of Field</h4>
+                                </div>
+                                <time class="journal-entry-date profile-award-year" datetime="2026">2026</time>
+                            </div>
+                            <p class="journal-entry-subtitle profile-award-detail">Subterranean Visions · Archiol Competitions</p>
+                        </article>
+                        <article class="profile-award">
+                            <div class="profile-award-heading">
+                                <div class="profile-award-heading-content">
+                                    <span class="journal-entry-category profile-award-rank">1st Prize</span>
+                                    <h4 class="journal-entry-title profile-award-title">Campustratten</h4>
+                                </div>
+                                <time class="journal-entry-date profile-award-year" datetime="2026">2026</time>
+                            </div>
+                            <p class="journal-entry-subtitle profile-award-detail">Urbform 1:1 · Lund University x Lund Municipality</p>
+                        </article>
+                    </div>
+                </section>
             </div>
 
         </div>
@@ -305,65 +353,59 @@
     </div>
 </section>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-main">
-        <div class="footer-left">
-            <h2 class="section-title">The story does not end here.</h2>
-            <a href="mailto:soderholm.alexander@gmail.com" class="footer-button button-pill">
-                Reach out 
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
-                    <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
+<section class="project-problem container" id="journal">
+    <header class="problem-header">
+        <h2 class="section-title">Journal</h2>
+    </header>
+
+    <div class="journal-entry-list">
+        <article class="journal-entry">
+            <a class="journal-entry-link" href="journal/this-website.html">
+                <time class="journal-entry-date" datetime="2026-10-30">30 Oct 2026</time>
+                <div class="journal-entry-content">
+                    <h3 class="journal-entry-title">This website</h3>
+                    <p class="journal-entry-subtitle">A place for my work, process and more informal reflections.</p>
+                </div>
+                <span class="journal-entry-category">Process</span>
             </a>
-        </div>
+        </article>
 
-        <div class="footer-right">
-
-        <div class="footer-segment">
-          <span class="section-label">Links</span>
-          <ul class="footer-links">
-            <li>
-              <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener">
-                Portfolio
-              </a>
-            </li>
-            <li>
-              <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener">
-                CV
-              </a>
-            </li>
-            <li>
-              <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener">
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="footer-segment">
-          <span class="section-label">Navigation</span>
-          <ul class="footer-links">
-            <li><a href="#projects">Recent work</a></li>
-            <li><a href="#profile">This is me</a></li>
-          </ul>
-        </div>
     </div>
-    </div>
+</section>
 
-    <!-- Bottom Bar -->
-    <div class="footer-bottom">
-      <span>&copy; 2026 Alexander Söderholm. Lund, Sweden</span>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="back-to-top">
-            Back to Top 
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" style="vertical-align: -0.125em; margin-left: 0.35rem;">
-                <path d="M12 19V5M5 12l7-7 7 7" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
+<footer class="project-footer">
+    <div class="project-footer-inner">
+        <a class="brand-wordmark" href="#hero">Alexander Söderholm</a>
+        <p class="project-footer-copyright">&copy; 2026 Alexander Söderholm</p>
+        <span class="project-footer-empty" aria-hidden="true"></span>
+        <nav class="project-footer-links" aria-label="External links">
+            <a href="images/pdf/Alexander-Söderholm_Portfolio-2026.pdf" target="_blank" rel="noopener">Portfolio</a>
+            <a href="images/pdf/Alexander-Söderholm_CV.pdf" target="_blank" rel="noopener">CV</a>
+            <a href="https://www.linkedin.com/in/alexander-soderholm" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="mailto:soderholm.alexander@gmail.com">Contact</a>
+        </nav>
+        <nav class="project-footer-nav" aria-label="Site navigation">
+            <a href="#projects">Work</a>
+            <a href="#profile">About</a>
+            <a href="#journal">Journal</a>
+            <a href="#hero">Back to top</a>
+        </nav>
+        <p class="project-footer-location">Made in Lund, Sweden</p>
     </div>
-  </div>
 </footer>
 
-<div class="page-transition-overlay" id="page-overlay"></div>
+<section class="project-next-link home-end-link" aria-labelledby="home-end-title">
+    <img class="project-next-image" src="images/reachout.png" alt="" aria-hidden="true">
+    <div class="project-next-link-inner">
+        <h2 class="home-end-title" id="home-end-title">The story does not end here.</h2>
+        <a class="project-end-contact button-pill" href="mailto:soderholm.alexander@gmail.com">
+            Reach out
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="1em" height="1em" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </a>
+    </div>
+</section>
+
 </body>
 </html>
