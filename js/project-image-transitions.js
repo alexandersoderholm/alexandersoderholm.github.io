@@ -4,7 +4,12 @@ window.addEventListener("pageswap", (event) => {
 
   const destination = new URL(destinationUrl);
   const indexUrl = new URL("../index.html", window.location.href);
-  if (destination.origin !== indexUrl.origin || destination.pathname !== indexUrl.pathname) return;
+  const normalizeIndexPath = (pathname) =>
+    pathname.replace(/index\.html$/i, "").replace(/\/+$/, "");
+  if (
+    destination.origin !== indexUrl.origin ||
+    normalizeIndexPath(destination.pathname) !== normalizeIndexPath(indexUrl.pathname)
+  ) return;
 
   const nextImage = document.querySelector(".project-next-link .project-next-image");
   if (!nextImage) return;
