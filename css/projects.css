@@ -138,8 +138,8 @@
 }
 
 /* =========================================================
-   4. CONTENT SECTIONS & SUMMARY GRID (2+3)
-========================================================== */
+   PROJECT SUMMARY & DETAILS
+   ========================================================= */
 
 .project-summary-section {
     padding-block: var(--section-padding);
@@ -217,42 +217,6 @@
     }
 }
 
-.project-content.juror-comment-section {
-    padding-top: var(--space-10);
-}
-
-.juror-comment-inner {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-4);
-    width: min(100%, var(--site-max-width));
-    margin-inline: auto;
-    padding-block: var(--space-6);
-    border-block: 1px solid var(--border-soft);
-}
-
-.juror-comment-label {
-    padding: 0;
-    color: var(--color-muted);
-}
-
-.juror-comment-quote {
-    max-width: 65ch;
-    font-size: var(--fs-lg);
-    line-height: var(--lh-loose);
-}
-
-@media (min-width: 900px) {
-    .juror-comment-inner {
-        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-        column-gap: var(--grid-gap);
-    }
-
-    .juror-comment-quote {
-        grid-column: 2;
-    }
-}
-
 .meta-block {
     display: flex;
     flex-direction: column;
@@ -312,14 +276,79 @@
 }
 
 /* =========================================================
-   5. MEDIA, SWIPER & GALLERY CONTENT
-========================================================== */
+   PROJECT CONTENT
+   ========================================================= */
 
 .project-content {
     width: 100%;
     margin-inline: auto;
     padding: 0 var(--site-margin) var(--section-padding);
 }
+
+.project-context {
+    padding-top: var(--section-padding);
+}
+
+.project-context-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--grid-gap);
+    width: min(100%, var(--site-max-width));
+    margin-inline: auto;
+    align-items: start;
+}
+
+.project-context-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.project-context-copy .section-title,
+.project-context-copy p {
+    margin: 0;
+}
+
+.project-context-figure {
+    width: 100%;
+    margin: 0;
+}
+
+.project-context-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.project-context-reference figcaption {
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: var(--fs-xs);
+    font-weight: var(--w-regular);
+    line-height: var(--lh-normal);
+    letter-spacing: var(--mono-spacing);
+    color: var(--color-muted);
+}
+
+.project-context-render-detail {
+    width: min(100%, var(--site-max-width));
+    margin: var(--section-padding) auto 0;
+}
+
+.project-context-render-detail img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+@media (min-width: 900px) {
+    .project-context-grid {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        align-items: center;
+    }
+}
+
+/* Content layouts and image rows */
 
 .project-content-focus,
 .project-image-list {
@@ -419,6 +448,44 @@
     }
 }
 
+/* Juror comments */
+.project-content.juror-comment-section {
+    padding-top: var(--space-10);
+}
+
+.juror-comment-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    width: min(100%, var(--site-max-width));
+    margin-inline: auto;
+    padding-block: var(--space-6);
+    border-block: 1px solid var(--border-soft);
+}
+
+.juror-comment-label {
+    padding: 0;
+    color: var(--color-muted);
+}
+
+.juror-comment-quote {
+    max-width: 65ch;
+    font-size: var(--fs-lg);
+    line-height: var(--lh-loose);
+}
+
+@media (min-width: 900px) {
+    .juror-comment-inner {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        column-gap: var(--grid-gap);
+    }
+
+    .juror-comment-quote {
+        grid-column: 2;
+    }
+}
+
+/* Swiper gallery */
 .mySwiper {
     width: 100%;
     margin: var(--section-padding) auto 0;
@@ -493,9 +560,8 @@
     margin: 0;
 }
 
-
 /* =========================================================
-   POSTER SLIDER (Updated Mobile Fix)
+   POSTER SLIDER
    ========================================================= */
 
 .posters-section {
@@ -578,7 +644,7 @@
 }
 
 /* =========================================================
-   ASPECT RATIO SWITCHER
+   POSTER ASPECT RATIOS
    ========================================================= */
 .poster-card-inner {
     height: 100%;
@@ -602,7 +668,7 @@
 }
 
 /* =========================================================
-   MOBILE MARGIN FIX
+   MOBILE POSTER SIZING
    ========================================================= */
 @media (max-width: 768px) {
     /* Portrait: Scale down height so width fits inside margins */
@@ -684,7 +750,7 @@
 }
 
 /* =========================================================
-   PHOTOSWIPE CUSTOM THEME OVERRIDES (Cleaned & Optimized)
+   PHOTOSWIPE THEME OVERRIDES
    ========================================================= */
 
 .pswp {
