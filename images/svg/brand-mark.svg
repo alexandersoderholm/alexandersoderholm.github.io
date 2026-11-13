@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.02 34.02">
+  <defs>
+    <clipPath id="mark">
+      <path d="M24.27,6.66c.16-.49-.2-.99-.72-.99h-5.21l3.92,7.03,2.01-6.04ZM27.75,27.22L15.74,5.67h-5.16c-.53,0-.9.53-.71,1.03l8.38,21.65h8.84c.58,0,.94-.62.66-1.12ZM6.25,27.25c-.25.5.11,1.09.68,1.09h8.9l-4.42-11.41-5.16,10.32Z"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#mark)">
+    <rect x="5.67" y="5.67" width="22.68" height="22.68" fill="#fff" transform="translate(34.02 34.02) rotate(-180)"/>
+  </g>
+</svg>
